@@ -4,6 +4,8 @@ import path from 'node:path';
 import {renderLayout} from '../src/templates/layout.js';
 import {renderCampaign} from '../src/features/campaign/view.js';
 import {initialCampaign} from '../src/features/campaign/seed.js';
+import {renderApplications} from '../src/features/applications/view.js';
+import {initialApplications} from '../src/features/applications/seed.js';
 import {escapeHtml} from '../src/shared/ui.js';
 
 export const pages=[
@@ -18,7 +20,11 @@ export const pages=[
 const root=fileURLToPath(new URL('../',import.meta.url));
 export async function generate(){
   for(const page of pages){
-    const body=page.view==='campaign'?renderCampaign(initialCampaign):`<h1 class="sr-only">${escapeHtml(page.title)}</h1><section class="blank-canvas" aria-label="${escapeHtml(page.title)}"></section>`;
+    const body = page.view === 'campaign'
+      ? renderCampaign(initialCampaign)
+      : page.view === 'applications'
+      ? renderApplications(initialApplications, initialCampaign)
+      : `<h1 class="sr-only">${escapeHtml(page.title)}</h1><section class="blank-canvas" aria-label="${escapeHtml(page.title)}"></section>`;
     await writeFile(path.join(root,page.file),renderLayout({...page,body}).replace(/[\t ]+$/gm,''),'utf8');
   }
   console.log(`Generated ${pages.length} static HTML pages.`);

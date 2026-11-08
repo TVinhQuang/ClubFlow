@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="src/styles/base.css">
   <link rel="stylesheet" href="src/styles/shell.css">
   <link rel="stylesheet" href="src/styles/campaign.css">
+  <link rel="stylesheet" href="src/styles/applications.css">
   <script type="module" src="src/app.js"></script>
 </head>
 <body data-view="applications">
@@ -51,7 +52,384 @@
       <a href="schedule.html"><span class="step-number">03</span><span><strong>Sắp xếp cuộc gặp</strong><small>Lịch & phỏng vấn</small></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     </nav>
   </div>
-  <main id="main" tabindex="-1"><h1 class="sr-only">Duyệt hồ sơ</h1><section class="blank-canvas" aria-label="Duyệt hồ sơ"></section></main>
+  <main id="main" tabindex="-1"><div class="page-heading">
+    <div>
+      <h1>Duyệt hồ sơ ứng tuyển</h1>
+      <p>Những gương mặt mới, những khả năng mới. Cùng xem xét và tìm người đồng hành phù hợp cho câu lạc bộ.</p>
+    </div>
+    <div class="heading-actions">
+      <button type="button" class="button button-secondary" data-action="export-apps">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 17v3h16v-3"/></svg>Xuất danh sách (CSV)
+      </button>
+    </div>
+  </div>
+
+  <div class="campaign-ribbon" role="region" aria-label="Thông tin đợt tuyển">
+    <div class="ribbon-main">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg>
+      <div>
+        <strong>Tuyển thành viên mùa Thu 2026</strong>
+        <small>CLB Truyền thông HCMUS</small>
+      </div>
+    </div>
+    <div class="ribbon-meta">
+      <span class="close-date">Hạn nhận đơn: 23:00 20/11/2026</span>
+      <span class="pill pill-published">Đang nhận đơn</span>
+    </div>
+  </div>
+
+  <div class="stats-strip" role="region" aria-label="Thống kê hồ sơ">
+    <div class="stat-card">
+      <div class="stat-top"><span class="stat-dot dot-neutral"></span>Tổng hồ sơ</div>
+      <span class="stat-value">8</span>
+      <span class="stat-context">từ 7 ứng viên</span>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><span class="stat-dot dot-amber"></span>Chờ duyệt</div>
+      <span class="stat-value">3</span>
+      <span class="stat-context attention">cần bạn xem xét</span>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><span class="stat-dot dot-success"></span>Qua vòng CV</div>
+      <span class="stat-value">4</span>
+      <span class="stat-context">sẵn sàng xếp lịch</span>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><span class="stat-dot dot-danger"></span>Đã loại</div>
+      <span class="stat-value">1</span>
+      <span class="stat-context">kết thúc vòng CV</span>
+    </div>
+  </div>
+
+  <div class="review-layout ">
+    <section class="list-panel" aria-label="Danh sách hồ sơ ứng tuyển">
+      <div class="list-heading">
+        <h2>Danh sách hồ sơ</h2>
+        <span class="count-tag">8 hồ sơ</span>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-field">
+          <label class="sr-only" for="application-search">Tìm tên, MSSV hoặc mã hồ sơ</label>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <input id="application-search" type="search" placeholder="Tìm tên, MSSV hoặc mã hồ sơ…" value="">
+        </div>
+        <div class="filter-field">
+          <label class="sr-only" for="role-filter">Lọc theo vị trí</label>
+          <select id="role-filter">
+            <option value="all">Tất cả vị trí</option>
+            <option value="Sáng tạo nội dung">Sáng tạo nội dung</option><option value="Thiết kế đồ họa">Thiết kế đồ họa</option><option value="Tổ chức sự kiện">Tổ chức sự kiện</option><option value="Nhiếp ảnh">Nhiếp ảnh</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="status-tabs" role="group" aria-label="Lọc theo trạng thái hồ sơ">
+        <button type="button" class="status-tab active" data-filter="all" aria-pressed="true">
+          Tất cả <span class="tab-count">8</span>
+        </button>
+        <button type="button" class="status-tab " data-filter="pending" aria-pressed="false">
+          Chờ duyệt <span class="tab-count">3</span>
+        </button>
+        <button type="button" class="status-tab " data-filter="shortlisted" aria-pressed="false">
+          Qua vòng CV <span class="tab-count">4</span>
+        </button>
+        <button type="button" class="status-tab " data-filter="rejected" aria-pressed="false">
+          Đã loại <span class="tab-count">1</span>
+        </button>
+      </div>
+
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Bảng hồ sơ ứng tuyển, có thể cuộn ngang">
+        <table class="data-table apps-table">
+          <thead>
+            <tr>
+              <th scope="col">Ứng viên</th>
+              <th scope="col">Vị trí ứng tuyển</th>
+              <th scope="col">Trạng thái</th>
+              <th scope="col"><span class="sr-only">Chi tiết</span></th>
+            </tr>
+          </thead>
+          <tbody id="application-rows">
+            <tr class="selected" data-row-app="HS-001">
+      <td>
+        <button type="button" class="select-person-button" data-select="HS-001" aria-label="Xem hồ sơ Nguyễn Minh Anh, Sáng tạo nội dung">
+          <span class="person-cell">
+    <span class="avatar mint">MA</span>
+    <span class="person-info">
+      <strong class="person-name">Nguyễn Minh Anh</strong>
+      <small class="person-sub">24120081 · HS-001</small>
+    </span>
+  </span>
+        </button>
+      </td>
+      <td>
+        <span class="role-name">Sáng tạo nội dung</span>
+        <small class="role-sub">Ban Nội dung</small>
+      </td>
+      <td><span class="pill pill-pending"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Chờ duyệt</span></td>
+      <td>
+        <button type="button" class="row-action-btn" data-select="HS-001" aria-label="Mở chi tiết hồ sơ Nguyễn Minh Anh">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </td>
+    </tr><tr class="" data-row-app="HS-002">
+      <td>
+        <button type="button" class="select-person-button" data-select="HS-002" aria-label="Xem hồ sơ Trần Gia Huy, Thiết kế đồ họa">
+          <span class="person-cell">
+    <span class="avatar blue">GH</span>
+    <span class="person-info">
+      <strong class="person-name">Trần Gia Huy</strong>
+      <small class="person-sub">24120102 · HS-002</small>
+    </span>
+  </span>
+        </button>
+      </td>
+      <td>
+        <span class="role-name">Thiết kế đồ họa</span>
+        <small class="role-sub">Ban Sáng tạo</small>
+      </td>
+      <td><span class="pill pill-shortlisted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Qua vòng CV</span></td>
+      <td>
+        <button type="button" class="row-action-btn" data-select="HS-002" aria-label="Mở chi tiết hồ sơ Trần Gia Huy">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </td>
+    </tr><tr class="" data-row-app="HS-003">
+      <td>
+        <button type="button" class="select-person-button" data-select="HS-003" aria-label="Xem hồ sơ Lê Thụy Hà, Sáng tạo nội dung">
+          <span class="person-cell">
+    <span class="avatar peach">TH</span>
+    <span class="person-info">
+      <strong class="person-name">Lê Thụy Hà</strong>
+      <small class="person-sub">24120954 · HS-003</small>
+    </span>
+  </span>
+        </button>
+      </td>
+      <td>
+        <span class="role-name">Sáng tạo nội dung</span>
+        <small class="role-sub">Ban Nội dung</small>
+      </td>
+      <td><span class="pill pill-shortlisted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Qua vòng CV</span></td>
+      <td>
+        <button type="button" class="row-action-btn" data-select="HS-003" aria-label="Mở chi tiết hồ sơ Lê Thụy Hà">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </td>
+    </tr><tr class="" data-row-app="HS-004">
+      <td>
+        <button type="button" class="select-person-button" data-select="HS-004" aria-label="Xem hồ sơ Nguyễn Hoàng Bảo Ngọc, Tổ chức sự kiện">
+          <span class="person-cell">
+    <span class="avatar lavender">BN</span>
+    <span class="person-info">
+      <strong class="person-name">Nguyễn Hoàng Bảo Ngọc</strong>
+      <small class="person-sub">25120836 · HS-004</small>
+    </span>
+  </span>
+        </button>
+      </td>
+      <td>
+        <span class="role-name">Tổ chức sự kiện</span>
+        <small class="role-sub">Ban Sự kiện</small>
+      </td>
+      <td><span class="pill pill-pending"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Chờ duyệt</span></td>
+      <td>
+        <button type="button" class="row-action-btn" data-select="HS-004" aria-label="Mở chi tiết hồ sơ Nguyễn Hoàng Bảo Ngọc">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </td>
+    </tr><tr class="" data-row-app="HS-005">
+      <td>
+        <button type="button" class="select-person-button" data-select="HS-005" aria-label="Xem hồ sơ Phạm Quốc Bảo, Nhiếp ảnh">
+          <span class="person-cell">
+    <span class="avatar mint">QB</span>
+    <span class="person-info">
+      <strong class="person-name">Phạm Quốc Bảo</strong>
+      <small class="person-sub">24121280 · HS-005</small>
+    </span>
+  </span>
+        </button>
+      </td>
+      <td>
+        <span class="role-name">Nhiếp ảnh</span>
+        <small class="role-sub">Ban Sáng tạo</small>
+      </td>
+      <td><span class="pill pill-shortlisted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Qua vòng CV</span></td>
+      <td>
+        <button type="button" class="row-action-btn" data-select="HS-005" aria-label="Mở chi tiết hồ sơ Phạm Quốc Bảo">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </td>
+    </tr><tr class="" data-row-app="HS-006">
+      <td>
+        <button type="button" class="select-person-button" data-select="HS-006" aria-label="Xem hồ sơ Hoàng Thảo Vy, Thiết kế đồ họa">
+          <span class="person-cell">
+    <span class="avatar peach">TV</span>
+    <span class="person-info">
+      <strong class="person-name">Hoàng Thảo Vy</strong>
+      <small class="person-sub">24120812 · HS-006</small>
+    </span>
+  </span>
+        </button>
+      </td>
+      <td>
+        <span class="role-name">Thiết kế đồ họa</span>
+        <small class="role-sub">Ban Sáng tạo</small>
+      </td>
+      <td><span class="pill pill-rejected"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>Đã loại</span></td>
+      <td>
+        <button type="button" class="row-action-btn" data-select="HS-006" aria-label="Mở chi tiết hồ sơ Hoàng Thảo Vy">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </td>
+    </tr><tr class="" data-row-app="HS-007">
+      <td>
+        <button type="button" class="select-person-button" data-select="HS-007" aria-label="Xem hồ sơ Đỗ Đức Thắng, Sáng tạo nội dung">
+          <span class="person-cell">
+    <span class="avatar blue">DT</span>
+    <span class="person-info">
+      <strong class="person-name">Đỗ Đức Thắng</strong>
+      <small class="person-sub">25120741 · HS-007</small>
+    </span>
+  </span>
+        </button>
+      </td>
+      <td>
+        <span class="role-name">Sáng tạo nội dung</span>
+        <small class="role-sub">Ban Nội dung</small>
+      </td>
+      <td><span class="pill pill-pending"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Chờ duyệt</span></td>
+      <td>
+        <button type="button" class="row-action-btn" data-select="HS-007" aria-label="Mở chi tiết hồ sơ Đỗ Đức Thắng">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </td>
+    </tr><tr class="" data-row-app="HS-008">
+      <td>
+        <button type="button" class="select-person-button" data-select="HS-008" aria-label="Xem hồ sơ Trần Gia Huy, Tổ chức sự kiện">
+          <span class="person-cell">
+    <span class="avatar blue">GH</span>
+    <span class="person-info">
+      <strong class="person-name">Trần Gia Huy</strong>
+      <small class="person-sub">24120102 · HS-008</small>
+    </span>
+  </span>
+        </button>
+      </td>
+      <td>
+        <span class="role-name">Tổ chức sự kiện</span>
+        <small class="role-sub">Ban Sự kiện</small>
+      </td>
+      <td><span class="pill pill-shortlisted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Qua vòng CV</span></td>
+      <td>
+        <button type="button" class="row-action-btn" data-select="HS-008" aria-label="Mở chi tiết hồ sơ Trần Gia Huy">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+      </td>
+    </tr>
+          </tbody>
+        </table>
+        <div id="app-empty" class="empty-state" hidden>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <h3>Không tìm thấy hồ sơ</h3>
+          <p>Thử tìm với từ khóa khác hoặc xóa bộ lọc để xem lại toàn bộ danh sách.</p>
+        </div>
+      </div>
+
+      <div class="list-footer">
+        <span id="list-count">Hiển thị 8/8 hồ sơ · Dữ liệu minh họa</span>
+        <div class="pagination">
+          <span>Trang</span>
+          <span class="page-current">1</span>
+          <span>/ 1</span>
+        </div>
+      </div>
+    </section>
+
+    <aside class="detail-panel" id="detail-panel" tabindex="-1" aria-label="Chi tiết hồ sơ Nguyễn Minh Anh">
+    <div class="detail-top">
+      <strong>Chi tiết hồ sơ</strong>
+      <div class="detail-top-actions">
+        <button type="button" class="button button-quiet button-small mobile-back" data-action="close-detail" aria-label="Quay lại danh sách hồ sơ"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>Danh sách</button>
+        <button type="button" class="icon-button" data-action="close-detail" aria-label="Đóng chi tiết hồ sơ"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      </div>
+    </div>
+    <div class="detail-body">
+      <div class="profile-header">
+        <span class="avatar avatar-large mint">MA</span>
+        <div>
+          <h2>Nguyễn Minh Anh</h2>
+          <small>24120081 · Năm 2</small>
+        </div>
+      </div>
+
+      <div class="profile-contacts">
+        <span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>minhanh.nguyen@example.com</span>
+        <span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5zM6 11v6c4 3 8 3 12 0v-6M22 9v7"/></svg>Công nghệ thông tin</span>
+      </div>
+
+      <section class="detail-section" aria-label="Vị trí ứng tuyển">
+        <h3>Vị trí ứng tuyển</h3>
+        <div class="applied-role-box">
+          <div>
+            <strong>Sáng tạo nội dung</strong>
+            <small>Ban Nội dung</small>
+          </div>
+          <span class="pill pill-pending"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Chờ duyệt</span>
+        </div>
+      </section>
+
+      <section class="detail-section" aria-label="Đôi lời từ ứng viên">
+        <h3>Đôi lời từ ứng viên</h3>
+        <p class="sop-text">Mình tin một câu chuyện hay có thể kết nối mọi người. Qua những lần viết bài cho lớp và tham gia dự án sinh viên, mình nhận ra bản thân thích tìm góc nhìn mới từ những điều rất gần gũi. Mình mong được cùng CLB biến những ý tưởng nhỏ thành nội dung có ý nghĩa và học thêm từ các bạn.</p>
+      </section>
+
+      <section class="detail-section" aria-label="CV đính kèm">
+        <h3>CV đính kèm</h3>
+        <div class="cv-card">
+          <span class="pdf-badge" aria-hidden="true">PDF</span>
+          <div class="cv-info">
+            <strong>NguyenMinhAnh_CV.pdf</strong>
+            <small>Định dạng PDF · Hồ sơ minh họa</small>
+          </div>
+          <button type="button" class="button button-secondary button-small" data-action="view-cv" data-app="HS-001" aria-label="Xem trước CV của Nguyễn Minh Anh"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Xem CV</button>
+        </div>
+      </section>
+
+      <section class="detail-section" aria-label="Ghi chú nội bộ">
+        <label for="review-note" class="note-label">
+          <span>Ghi chú nội bộ</span>
+          <small><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Chỉ ban tuyển dụng</small>
+        </label>
+        <textarea id="review-note" data-app="HS-001" rows="3" placeholder="Nhận xét sơ bộ, câu hỏi cần trao đổi trong buổi phỏng vấn…">Có kinh nghiệm viết bài cho fanpage sinh viên. Văn phong tự nhiên, cần phỏng vấn thêm về khả năng chịu áp lực tiến độ.</textarea>
+        <span class="inline-saved" id="note-saved" aria-live="polite"></span>
+      </section>
+
+      <div class="submission-time">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>Đã nộp: 09:15 09/11/2026</span>
+      </div>
+    </div>
+
+    <div class="detail-actions">
+      <button type="button" class="button button-danger" data-decision="rejected" data-app="HS-001" >
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>Loại hồ sơ
+      </button>
+      <button type="button" class="button button-primary" data-decision="shortlisted" data-app="HS-001" >
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Cho qua vòng CV
+      </button>
+    </div>
+  </aside>
+  </div>
+
+  <div class="review-bottom-nav">
+    <div class="review-notice">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <span>Ghi chú và quyết định vòng CV chỉ dành cho ban tuyển dụng nội bộ.</span>
+    </div>
+    <a class="button button-primary" href="schedule.html">
+      Tiếp tục đến lịch phỏng vấn<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>
+    </a>
+  </div></main>
   <footer class="site-footer"><p>ClubFlow · Prototype tuyển thành viên CLB</p></footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <dialog id="app-dialog" aria-labelledby="dialog-title"><div id="dialog-content"><h2 id="dialog-title" class="sr-only">Hộp thoại</h2></div></dialog>

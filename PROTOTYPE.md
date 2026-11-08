@@ -17,7 +17,7 @@ Use Node.js 22 or newer. From the repository directory run `npm run dev`, then o
 | Screen | Local path | Current scope |
 | --- | --- | --- |
 | 1 — Create recruitment campaign | [`index.html`](index.html) | Campaign information, opening/closing times, instructions, departments/positions, quotas, descriptions, requirements, Draft, Preview, Publish and link to screen 2 |
-| 2 — Review applications | [`applications.html`](applications.html) | Blank content within the common layout; assigned to B |
+| 2 — Review applications | [`applications.html`](applications.html) | Implemented by Lê Tấn Thành (B): stats, candidate table, role/status filtering, search, detail panel, shortlist/reject actions, note persistence, CV modal, CSV export, link to screen 3 |
 | 3 — Schedule interviews | [`schedule.html`](schedule.html) | Blank content within the common layout; assigned to C |
 | Other navigation | [`discover.html`](discover.html), [`recruitment.html`](recruitment.html), [`events.html`](events.html), [`profile.html`](profile.html) | Blank content within the common layout |
 
@@ -44,7 +44,8 @@ Before calling the full PA2 submission complete:
 - [x] Quang accepts the handoff before the first commit/push (user-reported manual checks and explicit authorization on 2026-11-08).
 - [x] Record actual test, structural-check and build results, with limitations.
 - [ ] Check screen 1 in a browser at 360px, 768px and 1280px, including JavaScript-disabled rendering, keyboard focus, labels/errors, dialogs, navigation and horizontal overflow.
-- [ ] B implements and verifies screen 2; C implements and verifies screen 3.
+- [x] B implements and verifies screen 2 (Lê Tấn Thành, 2026-11-08: 23/23 tests pass, static markup generated, responsive layout verified).
+- [ ] C implements and verifies screen 3.
 - [ ] Capture the required nine screenshots: all three screens at 360px, 768px and 1280px; save actual evidence paths.
 - [x] Validate the seven current generated HTML pages with W3C Nu and retain the results (2026-11-08: zero errors and zero warnings).
 - [ ] Repeat W3C validation for the final pages after B/C implementation and fix all errors; retain the results.

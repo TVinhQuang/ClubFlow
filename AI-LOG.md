@@ -2,6 +2,25 @@
 
 This log records assistant involvement in the current ClubFlow handoff. It does not attribute assistant-generated code to a human team member. The team owns the submitted result and must be able to explain it. Earlier prompts, manual edits or checks are not reconstructed without evidence.
 
+## 2026-11-08 — Screen 2 (Application Review) Implementation by Lê Tấn Thành
+
+Tool: Antigravity.
+
+Asked for: Implement Screen 2 (Application Review) completely for Lê Tấn Thành (24127540) within `applications.html`, adhering strictly to `AGENTS.md` and PA2 rubric requirements.
+
+Kept: Shared shell, tokens, typography, and sticky 3-step navigation. Connected Screen 2 to published campaign data via `campaignStore`. Maintained single `h1`, responsive design, and full static HTML generation for JavaScript-disabled accessibility.
+
+Changed: Implemented `src/features/applications/seed.js`, `store.js`, `view.js`, `index.js`, and `src/styles/applications.css`. Added status filtering, search by name/studentId/code, review note persistence in `localStorage`, CV preview modal, CSV export, and link to `schedule.html`. Connected `getApplications()` adapter in `src/app.js` to preserve application-position dependencies. Added 4 unit tests in `tests/applications.test.js` (total 23 tests).
+
+Rejected: Using generic or un-namespaced CSS classes; covering the application list on tablet/desktop with the detail panel (resolved by side-by-side flex layout with independent scroll and clear mobile back button); inventing external server endpoints.
+
+Caught and Fixed:
+- Check error: `npm run check` reported `AssertionError: applications.html: duplicate IDs (31 !== 35)` on generated `applications.html`.
+- Cause: Detail panel buttons and fields used `data-id="${candidate.id}"`, which matched the check script's regex `\bid="` due to the `-` boundary, flagging multiple elements with `HS-001`.
+- Fix: Renamed attributes to `data-app` and `data-row-app` to avoid false-positive ID matching while retaining data attributes for event delegation. Re-ran `npm run generate` and `npm run check`; all 7 pages passed with zero errors.
+
+Verification: All 23 automated tests passed (`npm test`). Structural checks passed (`npm run check`). Static build succeeded in `dist/` (`npm run build`). Dev server serves `applications.html` with HTTP 200.
+
 ## 2026-11-08 — Self-contained PA2 documentation correction
 
 Tool: OpenAI Codex.

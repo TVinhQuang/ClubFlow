@@ -1,5 +1,6 @@
 import {createUi} from './shared/ui.js';
 import {createCampaignStore} from './features/campaign/store.js';
+import {createApplicationsStore} from './features/applications/store.js';
 import {mount as mountCampaign} from './features/campaign/controller.js';
 import {mount as mountApplications} from './features/applications/index.js';
 import {mount as mountSchedule} from './features/schedule/index.js';
@@ -7,10 +8,10 @@ import {mount as mountPublic} from './features/public/index.js';
 
 const ui=createUi();
 let storage=null;try{storage=localStorage;}catch{}
-// B will connect this adapter to application records, preserving positionId links.
-const getApplications=()=>[];
+const applicationsStore=createApplicationsStore(storage);
+const getApplications=()=>applicationsStore.getAll();
 const campaignStore=createCampaignStore(storage,{getApplications});
-const services={ui,campaignStore,getApplications};
+const services={ui,campaignStore,applicationsStore,getApplications};
 const view=document.body.dataset.view||'campaign';
 const mount={campaign:mountCampaign,applications:mountApplications,schedule:mountSchedule}[view]||mountPublic;
 const cleanup=mount(document.querySelector('#main'),services);
