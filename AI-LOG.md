@@ -2,6 +2,22 @@
 
 This log records assistant involvement in the current ClubFlow handoff. It does not attribute assistant-generated code to a human team member. The team owns the submitted result and must be able to explain it. Earlier prompts, manual edits or checks are not reconstructed without evidence.
 
+## 2026-11-08 — Self-contained PA2 documentation correction
+
+Tool: OpenAI Codex.
+
+Asked for: Explain and correct references to an unavailable local demo folder and the inclusion of unrelated PA1 sports wireframes in the PA2 repository.
+
+Kept: The implemented PA2 application, shared layout, team ownership and existing validation evidence.
+
+Changed: README, rules, prototype description and implementation plan now identify the UI sources inside this repository. Removed the copied sports-topic wireframes from the current repository tree. The original files outside this repository were preserved.
+
+Rejected: Treating a local demo folder as a usable reference for teammates who clone this repository; including unrelated historical images in the working PA2 code handoff. Prior prompts remain verbatim for traceability.
+
+By hand: The user identified the scope and documentation problem. No team-authored code is attributed to this correction.
+
+Verification: Documentation and repository-scope checks are recorded with this correction; HTML/application sources are unchanged, so the retained W3C evidence remains applicable.
+
 ## 2026-11-08 — Accepted handoff, W3C validation and GitHub request
 
 Tool: OpenAI Codex, with collaborating assistant agents.

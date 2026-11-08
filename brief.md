@@ -2,7 +2,11 @@
 
 ## Agreed outcome
 
-Keep the approved ClubFlow UI demo layout and finish Trần Vinh Quang's shared foundation and screen 1. Leave the other page content blank inside the shared shell so the assigned members can implement it. Supply project rules that match static HTML, custom CSS, vanilla JavaScript ES modules and the chosen visual layout. Quang's review-before-push gate was satisfied on 2026-11-08 when he reported completing his manual checks and explicitly requested W3C validation and a commit/push of the completed work to `origin/main` at <https://github.com/TVinhQuang/ClubFlow>.
+Implement the PA2 layout contained in this repository and finish Trần Vinh Quang's shared foundation and screen 1. The shared header, avatar menu, sticky three-step bar, campaign form and preview are defined by `src/templates/layout.js`, `src/features/campaign/view.js` and `src/styles/`. Leave the other page content blank inside the shared shell so the assigned members can implement it. Supply project rules for static HTML, custom CSS and vanilla JavaScript ES modules. Quang's review-before-push gate was satisfied on 2026-11-08 when he reported completing his manual checks and explicitly requested W3C validation and a commit/push of the completed work to `origin/main` at <https://github.com/TVinhQuang/ClubFlow>.
+
+## Current repository scope
+
+This development repository contains the ClubFlow PA2 implementation, its team rules and its verification evidence. Layout instructions point to files included here. Unrelated sports-topic wireframes are excluded. Historical prompts below are retained verbatim as an AI-use record, not as dependencies for running or extending the project.
 
 | Owner | Deliverable |
 | --- | --- |
@@ -45,3 +49,11 @@ oke tui đã test kiểm tra hết và oke bạn hãy giúp tui kiểm chứng W
 ```
 
 Quang reports that his manual testing and review are complete. The request authorizes sending the generated HTML to the W3C Nu validator and committing/pushing the completed handoff to `origin/main`; it supersedes both the earlier W3C deferral and the pending review gate. All seven generated HTML pages passed W3C Nu on 2026-11-08 with zero errors and zero warnings; retained reports are in `checks/w3c/`. The current push is authorized, and the GitHub commit history records actual publication. Do not infer screenshots, viewport dimensions, completed B/C screens or a finished PA2 submission from this approval.
+
+## Repository scope correction — verbatim, 2026-11-08
+
+```text
+sao bạn đưa cái này vô r biết cái demo này ở đâu follows the approved `clubflow-ui-demo` với bạn đưa cả PA1 lên đó làm gì đâu liên quan đâu này laf của PA2 mà
+```
+
+The team instructions now describe the UI through files included in this PA2 repository. The unrelated sports-topic image copies were removed from the current tree; historical prompts remain as a record of the requested work.

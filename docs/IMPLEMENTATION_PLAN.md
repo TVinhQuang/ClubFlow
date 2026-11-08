@@ -5,13 +5,13 @@
 - Trần Vinh Quang (24127523): shared foundation and campaign-creation screen.
 - Lê Tấn Thành (24127540): application-review screen; this starter supplies a module and blank content area for him to develop.
 - Nguyễn Thái Cường (24127336): interview-scheduling screen; this starter supplies a module and blank content area for him to develop.
-- Preserve the team's approved "Solid" layout: horizontal navigation, avatar account menu, sticky three-step workflow, large form on the left and preview on the right. "Solid" is the layout description, not a framework choice.
-- Keep links and blank scaffolds for the other tabs. Do not include the screen 2–3 demo logic in this handoff.
+- Preserve the layout implemented in `index.html`: horizontal navigation, avatar account menu, sticky three-step workflow, large form on the left and preview on the right. Shared source files and styling are described in README.md.
+- Keep links and blank scaffolds for the other tabs. Screens 2–3 are reserved for their assigned members.
 - The original review-before-push gate is satisfied: on 2026-11-08 Quang reported completing his manual checks and explicitly authorized W3C validation and a commit/push of the completed work to `origin/main` at <https://github.com/TVinhQuang/ClubFlow>. Later changes require coordinated review, and repository publication requires an explicit user request.
 
 ## Stack
 
-Static HTML, custom CSS and vanilla JavaScript ES modules; Node.js 22 or newer runs the server, build and tests. There are no application dependencies. `PA2/Requirement.txt` permits this stack. The project is in the separate `ClubFlow/` clone; the demo is the layout reference.
+Static HTML, custom CSS and vanilla JavaScript ES modules; Node.js 22 or newer runs the server, build and tests. There are no application dependencies. The generated root HTML files, `src/templates/layout.js`, `src/features/campaign/view.js` and `src/styles/` define the layout within this repository.
 
 ## Implementation units
 

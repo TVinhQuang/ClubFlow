@@ -1,6 +1,6 @@
 # ClubFlow team rules
 
-These rules apply to this repository, including work assisted by AI. Preserve the approved ClubFlow layout: horizontal site navigation, avatar account menu, sticky three-step recruitment workflow, a large campaign form on the left, and its preview on the right. “Solid” describes the approved demo layout; it is not a framework choice.
+These rules apply to this PA2 repository, including work assisted by AI. Preserve the ClubFlow layout implemented here: horizontal site navigation, avatar account menu, sticky three-step recruitment workflow, a large campaign form on the left, and its preview on the right. The reference is `index.html`, generated from `src/templates/layout.js` and `src/features/campaign/view.js`, with the styles in `src/styles/`. No external demo folder is required; README.md describes the layout and how to open it.
 
 ## Ownership and current scope
 
@@ -23,7 +23,7 @@ B and C currently have blank content areas inside the shared shell. Keep them bl
 ## Visual and accessibility contract
 
 - Brand blue is `#006bff`; navy is `#181c31`. Use the shared color tokens, including dark-theme tokens, rather than arbitrary new colors. Use Inter with the supplied system-font fallback.
-- Main content has a maximum width of **1440px**. Use spacing values **4, 8, 12, 16, 24, 32, 40, 48px**. Keep the approved card, control and navigation treatment consistent.
+- Main content has a maximum width of **1440px**. Use spacing values **4, 8, 12, 16, 24, 32, 40, 48px**. Reuse the card, control and navigation rules in `src/styles/base.css`, `shell.css` and `campaign.css`; shared colors and dimensions are defined in `tokens.css` in the same directory.
 - Main form boundaries are **767px**, **1099px** and **1439px**; the shared header also adapts at **1023px** and **1279px**. At small widths stack content, preserve source order, and keep actions reachable. The duplicate sidebar preview may hide because the full Preview action remains available. Do not hide required form content to make a screenshot fit.
 - Interactive targets should be at least **44 × 44px**; form text is at least **16px**. Keep visible keyboard focus. Associate labels and errors with controls, expose status changes accessibly, and restore focus after dialogs.
 - Each page has one `h1`. Prefer semantic HTML and real buttons/links; do not create click-only `div` controls. Escape user-supplied strings before HTML interpolation. No `!important`.

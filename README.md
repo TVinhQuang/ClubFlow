@@ -1,6 +1,17 @@
 # ClubFlow
 
-Team starter for the ClubFlow recruitment prototype. This handoff implements Quang's shared foundation and screen 1, while leaving application review, interview scheduling and the other navigation content blank for their owners. It follows the approved `clubflow-ui-demo` layout using static HTML, custom CSS and vanilla JavaScript ES modules.
+ClubFlow is the team's PA2 recruitment prototype, built with static HTML, custom CSS and vanilla JavaScript ES modules. This repository implements Quang's shared foundation and screen 1, while leaving application review, interview scheduling and the other navigation content blank for their owners.
+
+## UI structure included in this repository
+
+Open [`index.html`](index.html) through the local server below to see the implemented layout. No separate demo folder is needed.
+
+- The shared header contains the ClubFlow logo, navigation, light/dark switch and avatar account menu.
+- Management pages have a sticky three-step bar: campaign creation, application review and interview scheduling.
+- Screen 1 uses a large campaign form on the left and a live preview on the right. Below 1100px the content stacks; on phones the complete preview is available through the Preview button.
+- Blue `#006bff`, navy `#181c31`, locally hosted Inter fonts and a 1440px maximum content width define the common appearance.
+
+The actual UI sources are [`src/templates/layout.js`](src/templates/layout.js) for the shared shell, [`src/features/campaign/view.js`](src/features/campaign/view.js) for screen 1, and [`src/styles/`](src/styles/) for colors, spacing and responsive layouts. [`AGENTS.md`](AGENTS.md) specifies the rules for extending them.
 
 ## Run locally
 

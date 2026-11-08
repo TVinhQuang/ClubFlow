@@ -23,11 +23,11 @@ Use Node.js 22 or newer. From the repository directory run `npm run dev`, then o
 
 Static markup remains available with JavaScript disabled. Campaign interactions, storage, preview dialog, menus and theme changes require JavaScript. Paths are ordinary HTML links and use relative local assets. No runtime API or external data service is needed. Font rendering uses the configured Inter/system fallback; exact typography may depend on available fonts.
 
-## Design and changes from the earlier work
+## PA2 layout and implementation
 
-The PA1 work used a sports topic; the current topic is ClubFlow, a club recruitment workflow. The approved `clubflow-ui-demo` provides the current visual reference: horizontal navigation, account avatar, sticky three-step workflow, left-hand form and right-hand preview. This handoff reorganizes that reference into shared foundation and separately owned feature modules. “Solid” refers to the chosen layout, not SolidJS.
+ClubFlow's three-screen workflow is campaign creation, application review and interview scheduling. The layout is implemented in this repository: horizontal navigation, an avatar account menu, a sticky three-step bar, a large campaign form on the left and a preview on the right. Open `index.html` through the local server to inspect screen 1. Shared markup is in `src/templates/layout.js`, screen 1 markup is in `src/features/campaign/view.js`, and styling is in `src/styles/`. These files define the UI; no separate demo checkout is needed.
 
-The brand colors are blue `#006bff` and navy `#181c31`, with shared light/dark tokens and self-hosted Inter fonts. Content has a maximum width of 1440px. Use the spacing scale 4/8/12/16/24/32/40/48px for new shared components; existing composition values follow the approved demo. Main form boundaries are 767px, 1099px and 1439px; the header also adapts at 1023px and 1279px. Controls use visible focus, associated labels/errors, at least 16px input text and 44px interaction targets. Shared rules are in [`AGENTS.md`](AGENTS.md).
+The brand colors are blue `#006bff` and navy `#181c31`, with shared light/dark tokens and self-hosted Inter fonts. Content has a maximum width of 1440px. Use the spacing scale 4/8/12/16/24/32/40/48px for new shared components and the existing CSS rules for established elements. Main form boundaries are 767px, 1099px and 1439px; the header also adapts at 1023px and 1279px. Controls use visible focus, associated labels/errors, at least 16px input text and 44px interaction targets. Shared rules are in [`AGENTS.md`](AGENTS.md).
 
 ## Local behavior and boundaries
 
@@ -45,7 +45,6 @@ Before calling the full PA2 submission complete:
 - [x] Record actual test, structural-check and build results, with limitations.
 - [ ] Check screen 1 in a browser at 360px, 768px and 1280px, including JavaScript-disabled rendering, keyboard focus, labels/errors, dialogs, navigation and horizontal overflow.
 - [ ] B implements and verifies screen 2; C implements and verifies screen 3.
-- [x] Add the three original sports-topic PA1 screens under `docs/pa1/` and explain their historical role.
 - [ ] Capture the required nine screenshots: all three screens at 360px, 768px and 1280px; save actual evidence paths.
 - [x] Validate the seven current generated HTML pages with W3C Nu and retain the results (2026-11-08: zero errors and zero warnings).
 - [ ] Repeat W3C validation for the final pages after B/C implementation and fix all errors; retain the results.
