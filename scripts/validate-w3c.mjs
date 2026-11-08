@@ -20,7 +20,7 @@ for(const {file,view} of pages){
   const errors=report.messages.filter(message=>message.type==='error');
   const warnings=report.messages.filter(message=>message.subType==='warning');
   const result={file,view,sha256:createHash('sha256').update(html).digest('hex'),errors:errors.length,warnings:warnings.length,report:`${view}.json`};
-  await writeFile(path.join(output,result.report),raw+'\n','utf8');
+  await writeFile(path.join(output,result.report),raw.trimEnd()+'\n','utf8');
   results.push(result);
   console.log(`${file}: ${result.errors} errors, ${result.warnings} warnings`);
   for(const message of report.messages)if(message.type==='error'||message.subType==='warning')console.log(`  ${message.type}${message.subType?`/${message.subType}`:''} line ${message.lastLine??'?'}: ${message.message}`);

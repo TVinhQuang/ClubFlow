@@ -1,0 +1,63 @@
+{
+  "checkedAt": "2026-11-08T07:41:21.157Z",
+  "endpoint": "https://validator.w3.org/nu/?out=json",
+  "scope": "Generated HTML files only. Screens 2/3 and public pages are blank scaffolds; validation does not certify feature completion, responsive layout, or external CSS.",
+  "results": [
+    {
+      "file": "index.html",
+      "view": "campaign",
+      "sha256": "680f5f933768be8e7db1f58f46c6e98191d879f2d480685b4f630199606cdf38",
+      "errors": 0,
+      "warnings": 0,
+      "report": "campaign.json"
+    },
+    {
+      "file": "applications.html",
+      "view": "applications",
+      "sha256": "74cd9ddd861e68f2c98b1d0d447cfb0961435450b4ff7d671e483a894d9780d9",
+      "errors": 0,
+      "warnings": 0,
+      "report": "applications.json"
+    },
+    {
+      "file": "schedule.html",
+      "view": "schedule",
+      "sha256": "d7c9a9938c23d847003f457178823cd3ba800da805df3d1baaeba6b5c7ec24b7",
+      "errors": 0,
+      "warnings": 0,
+      "report": "schedule.json"
+    },
+    {
+      "file": "discover.html",
+      "view": "discover",
+      "sha256": "5b1f26e2be9f12e1bf92257086d0bb146b6b758ed1e4f38cec41b4d70264e1ec",
+      "errors": 0,
+      "warnings": 0,
+      "report": "discover.json"
+    },
+    {
+      "file": "recruitment.html",
+      "view": "recruitment",
+      "sha256": "c4a184faf7f3c23b1c4a956c85c2b1782de5cadf943a6988d8904af94b0b5a25",
+      "errors": 0,
+      "warnings": 0,
+      "report": "recruitment.json"
+    },
+    {
+      "file": "events.html",
+      "view": "events",
+      "sha256": "39454025372fe05a33fbff64b1c0534c4d75ce5c880a96790c03a4fb3111cb72",
+      "errors": 0,
+      "warnings": 0,
+      "report": "events.json"
+    },
+    {
+      "file": "profile.html",
+      "view": "profile",
+      "sha256": "b8e47afa737aecdaabfe096cea85b0459847e10e0fddd5f084b9b20adf50f64e",
+      "errors": 0,
+      "warnings": 0,
+      "report": "profile.json"
+    }
+  ]
+}
