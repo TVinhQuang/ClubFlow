@@ -49,6 +49,20 @@ export function createApplicationsStore(storage) {
       persist(list);
       return list.find(a => a.id === id);
     },
+    /** Existing application from the same student for the same position, if any. */
+    findDuplicate(studentId, positionId) {
+      return load().find(a => a.studentId === studentId && a.positionId === positionId) || null;
+    },
+    /** Adds an applicant's submission as a pending application; duplicates return the existing record. */
+    create(input) {
+      const existing = this.findDuplicate(input.studentId, input.positionId);
+      if (existing) return { ok: false, duplicate: existing };
+      const list = load();
+      const next = Math.max(0, ...list.map(a => Number(String(a.id).replace(/\D/g, '')) || 0)) + 1;
+      const application = { ...input, id: `HS-${String(next).padStart(3, '0')}`, status: 'pending', note: '' };
+      persist([...list, application]);
+      return { ok: true, application };
+    },
     getStats() {
       const list = load();
       const uniqueStudents = new Set(list.map(a => a.studentId)).size;

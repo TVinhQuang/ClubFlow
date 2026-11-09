@@ -28,7 +28,48 @@ export function personAvatar(candidate) {
   </span>`;
 }
 
-export function renderDetailPanel(candidate) {
+export const PAGE_SIZE = 5;
+export const sortOptions = {
+  'submitted-desc': ['Mới nộp trước', (a, b) => b.submitted.localeCompare(a.submitted)],
+  'submitted-asc': ['Nộp sớm trước', (a, b) => a.submitted.localeCompare(b.submitted)],
+  'name-asc': ['Tên A–Z', (a, b) => a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1), 'vi') || a.name.localeCompare(b.name, 'vi')],
+  'role-asc': ['Vị trí A–Z', (a, b) => a.role.localeCompare(b.role, 'vi') || a.submitted.localeCompare(b.submitted)]
+};
+export const intakeLabels = { draft: ['Chưa công bố', 'draft'], upcoming: ['Sắp nhận đơn', 'draft'], open: ['Đang nhận đơn', 'published'], closed: ['Đã đóng đơn', 'closed'] };
+
+/** Sort, then cut one page. Returns the page rows and paging facts for the footer. */
+export function paginate(applications, { sort = 'submitted-desc', page = 1 } = {}) {
+  const sorted = [...applications].sort((sortOptions[sort] || sortOptions['submitted-desc'])[1]);
+  const pages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const current = Math.min(Math.max(1, page), pages);
+  const start = (current - 1) * PAGE_SIZE;
+  return { rows: sorted.slice(start, start + PAGE_SIZE), page: current, pages, from: sorted.length ? start + 1 : 0, to: Math.min(start + PAGE_SIZE, sorted.length), total: sorted.length };
+}
+
+export function renderPager(info) {
+  return `<span id="list-count">Hiển thị ${info.from}–${info.to} trong ${info.total} hồ sơ</span>
+    <nav class="pagination" aria-label="Phân trang hồ sơ">
+      <button type="button" class="button button-secondary button-small" data-page="${info.page - 1}" ${info.page <= 1 ? 'disabled' : ''} aria-label="Trang trước" title="Trang trước">${icon('back')}</button>
+      <span class="page-status" aria-live="polite">Trang <span class="page-current">${info.page}</span> / ${info.pages}</span>
+      <button type="button" class="button button-secondary button-small" data-page="${info.page + 1}" ${info.page >= info.pages ? 'disabled' : ''} aria-label="Trang sau" title="Trang sau">${icon('arrow')}</button>
+    </nav>`;
+}
+
+/** CV preview body for the dialog. Sample text only; no file is stored. */
+export function renderCvPreview(candidate) {
+  return `<div class="cv-preview">
+    <div class="cv-preview-head"><span class="pdf-badge" aria-hidden="true">PDF</span><div><strong>${esc(candidate.cv)}</strong><small>${esc(candidate.name)} · MSSV ${esc(candidate.studentId)}</small></div></div>
+    <div class="cv-preview-sheet">
+      <p><strong>Ngành học:</strong> ${esc(candidate.major)} (${esc(candidate.year || 'Sinh viên')})</p>
+      <p><strong>Vị trí ứng tuyển:</strong> ${esc(candidate.role)} — ${esc(candidate.department)}</p>
+      <p><strong>Nguyện vọng tham gia:</strong></p>
+      <blockquote>${esc(candidate.sop)}</blockquote>
+      <p class="cv-preview-note">Bản xem trước minh họa; prototype không lưu tệp PDF thật.</p>
+    </div>
+  </div>`;
+}
+
+export function renderDetailPanel(candidate, { readOnly = false } = {}) {
   if (!candidate) {
     return `<aside class="detail-panel empty-detail" id="detail-panel" tabindex="-1" aria-label="Chi tiết hồ sơ">
       <div class="empty-state">
@@ -47,7 +88,7 @@ export function renderDetailPanel(candidate) {
       <strong>Chi tiết hồ sơ</strong>
       <div class="detail-top-actions">
         <button type="button" class="button button-quiet button-small mobile-back" data-action="close-detail" aria-label="Quay lại danh sách hồ sơ">${icon('arrow')}Danh sách</button>
-        <button type="button" class="icon-button" data-action="close-detail" aria-label="Đóng chi tiết hồ sơ">${icon('x')}</button>
+        <button type="button" class="icon-button" data-action="close-detail" aria-label="Đóng chi tiết hồ sơ" title="Đóng chi tiết">${icon('x')}</button>
       </div>
     </div>
     <div class="detail-body">
@@ -97,7 +138,7 @@ export function renderDetailPanel(candidate) {
           <span>Ghi chú nội bộ</span>
           <small>${icon('lock')}Chỉ ban tuyển dụng</small>
         </label>
-        <textarea id="review-note" data-app="${esc(candidate.id)}" rows="3" placeholder="Nhận xét sơ bộ, câu hỏi cần trao đổi trong buổi phỏng vấn…">${esc(candidate.note || '')}</textarea>
+        <textarea id="review-note" data-app="${esc(candidate.id)}" rows="3"${readOnly ? ' readonly' : ''} placeholder="Nhận xét sơ bộ, câu hỏi cần trao đổi trong buổi phỏng vấn…">${esc(candidate.note || '')}</textarea>
         <span class="inline-saved" id="note-saved" aria-live="polite"></span>
       </section>
 
@@ -107,14 +148,14 @@ export function renderDetailPanel(candidate) {
       </div>
     </div>
 
-    <div class="detail-actions">
+    ${readOnly ? `<p class="detail-locked">${icon('lock')}Lịch phỏng vấn đã xác nhận nên quyết định vòng CV chỉ có thể xem.</p>` : `<div class="detail-actions">
       <button type="button" class="button button-danger" data-decision="rejected" data-app="${esc(candidate.id)}" ${isRejected ? 'disabled' : ''}>
         ${icon('x')}${isRejected ? 'Đã loại hồ sơ' : 'Loại hồ sơ'}
       </button>
       <button type="button" class="button button-primary" data-decision="shortlisted" data-app="${esc(candidate.id)}" ${isShortlisted ? 'disabled' : ''}>
         ${icon('check')}${isShortlisted ? 'Đã qua vòng CV' : 'Cho qua vòng CV'}
       </button>
-    </div>
+    </div>`}
   </aside>`;
 }
 
@@ -134,6 +175,7 @@ export function renderRows(applications, selectedId) {
         <span class="role-name">${esc(a.role)}</span>
         <small class="role-sub">${esc(a.department)}</small>
       </td>
+      <td><time class="submitted-time" datetime="${esc(a.submitted)}">${esc(formatDateTime(a.submitted))}</time></td>
       <td>${statusBadge(a.status)}</td>
       <td>
         <button type="button" class="row-action-btn" data-select="${esc(a.id)}" aria-label="Mở chi tiết hồ sơ ${esc(a.name)}">
@@ -149,8 +191,15 @@ export function renderApplications(applications, campaign = {}, options = {}) {
     selectedId = applications[0]?.id || null,
     filter = 'all',
     role = 'all',
-    query = ''
+    query = '',
+    sort = 'submitted-desc',
+    page = 1,
+    readOnly = false,
+    intakeStatus = 'open'
   } = options;
+  const pageInfo = paginate(applications, { sort, page });
+  const [intakeText, intakeClass] = intakeLabels[intakeStatus] || intakeLabels.open;
+  const ariaSort = column => sort.startsWith(column) ? ` aria-sort="${sort.endsWith('asc') ? 'ascending' : 'descending'}"` : '';
 
   const roles = [...new Set(applications.map(a => a.role))];
   const pendingCount = applications.filter(a => a.status === 'pending').length;
@@ -186,7 +235,7 @@ export function renderApplications(applications, campaign = {}, options = {}) {
     </div>
     <div class="ribbon-meta">
       <span class="close-date">Hạn nhận đơn: ${esc(campaignClose)}</span>
-      <span class="pill pill-published">Đang nhận đơn</span>
+      <span class="pill pill-${intakeClass}">${intakeText}</span>${readOnly ? '<span class="pill pill-shortlisted">Lịch đã xác nhận</span>' : ''}
     </div>
   </div>
 
@@ -222,12 +271,18 @@ export function renderApplications(applications, campaign = {}, options = {}) {
 
       <div class="toolbar">
         <div class="search-field">
-          <label class="sr-only" for="application-search">Tìm tên, MSSV hoặc mã hồ sơ</label>
+          <label class="toolbar-label" for="application-search">Tìm hồ sơ</label>
           ${icon('search')}
           <input id="application-search" type="search" placeholder="Tìm tên, MSSV hoặc mã hồ sơ…" value="${esc(query)}">
         </div>
         <div class="filter-field">
-          <label class="sr-only" for="role-filter">Lọc theo vị trí</label>
+          <label class="toolbar-label" for="sort-select">Sắp xếp</label>
+          <select id="sort-select">
+            ${Object.entries(sortOptions).map(([key, [label]]) => `<option value="${key}"${sort === key ? ' selected' : ''}>${label}</option>`).join('')}
+          </select>
+        </div>
+        <div class="filter-field">
+          <label class="toolbar-label" for="role-filter">Vị trí</label>
           <select id="role-filter">
             <option value="all">Tất cả vị trí</option>
             ${roles.map(r => `<option value="${esc(r)}"${role === r ? ' selected' : ''}>${esc(r)}</option>`).join('')}
@@ -254,14 +309,15 @@ export function renderApplications(applications, campaign = {}, options = {}) {
         <table class="data-table apps-table">
           <thead>
             <tr>
-              <th scope="col">Ứng viên</th>
-              <th scope="col">Vị trí ứng tuyển</th>
+              <th scope="col" id="th-name"${ariaSort('name')}>Ứng viên</th>
+              <th scope="col" id="th-role"${ariaSort('role')}>Vị trí ứng tuyển</th>
+              <th scope="col" id="th-submitted"${ariaSort('submitted')}>Thời gian nộp</th>
               <th scope="col">Trạng thái</th>
               <th scope="col"><span class="sr-only">Chi tiết</span></th>
             </tr>
           </thead>
           <tbody id="application-rows">
-            ${renderRows(applications, selectedCandidate?.id)}
+            ${renderRows(pageInfo.rows, selectedCandidate?.id)}
           </tbody>
         </table>
         <div id="app-empty" class="empty-state" ${applications.length ? 'hidden' : ''}>
@@ -271,17 +327,12 @@ export function renderApplications(applications, campaign = {}, options = {}) {
         </div>
       </div>
 
-      <div class="list-footer">
-        <span id="list-count">Hiển thị ${applications.length}/${applications.length} hồ sơ · Dữ liệu minh họa</span>
-        <div class="pagination">
-          <span>Trang</span>
-          <span class="page-current">1</span>
-          <span>/ 1</span>
-        </div>
+      <div class="list-footer" id="list-footer">
+        ${renderPager(pageInfo)}
       </div>
     </section>
 
-    ${renderDetailPanel(selectedCandidate)}
+    ${renderDetailPanel(selectedCandidate, { readOnly })}
   </div>
 
   <div class="review-bottom-nav">
