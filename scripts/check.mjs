@@ -13,4 +13,4 @@ for(const page of pages){
   assert.ok(!html.includes('\uFFFD'),`${page.file}: encoding`);
 }
 for(const name of await readdir(path.join(root,'src/styles'))){const css=await readFile(path.join(root,'src/styles',name),'utf8');assert.ok(!css.includes('!important'),`${name}: no important`);assert.equal((css.match(/{/g)||[]).length,(css.match(/}/g)||[]).length,`${name}: braces`);}
-console.log('Checked 7 pages: local references, single h1, unique IDs, labels and CSS structure.');
+console.log(`Checked ${pages.length} pages: local references, single h1, unique IDs, labels and CSS structure.`);

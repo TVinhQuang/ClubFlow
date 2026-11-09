@@ -18,8 +18,23 @@ const paths={
   search:'<circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/>',
   download:'<path d="M12 3v12m-5-5 5 5 5-5M4 17v3h16v-3"/>',
   mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',
-  school:'<path d="m2 9 10-5 10 5-10 5zM6 11v6c4 3 8 3 12 0v-6M22 9v7"/>'
+  school:'<path d="m2 9 10-5 10 5-10 5zM6 11v6c4 3 8 3 12 0v-6M22 9v7"/>',
+  back:'<path d="M20 12H4m6-6-6 6 6 6"/>',
+  bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/>',
+  logout:'<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/>',
+  star:'<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
+  upload:'<path d="M12 16V4m-5 5 5-5 5 5M4 17v3h16v-3"/>',
+  users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20v-1a6 6 0 0 1 12 0v1M16 4.5a3.5 3.5 0 0 1 0 7M18 14a5 5 0 0 1 4 5v1"/>',
+  sort:'<path d="M8 4v16m-4-4 4 4 4-4M16 20V4m-4 4 4-4 4 4"/>',
+  trophy:'<path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4a3 3 0 0 0 4 4m8-4h4a3 3 0 0 1-4 4M12 14v4m-4 3h8"/>'
 };
+/** Download rows as a UTF-8 CSV (with BOM for spreadsheet apps). Values are quoted. */
+export function downloadCsv(filename,rows){
+  const csv='﻿'+rows.map(r=>r.map(c=>'"'+String(c??'').replaceAll('"','""')+'"').join(',')).join('\r\n');
+  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+  const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 export const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const icon=name=>`<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${paths[name]||paths.info}</svg>`;
 export function formatDateTime(value){
@@ -31,16 +46,27 @@ export function createUi(){
   const dialog=document.querySelector('#app-dialog'),content=document.querySelector('#dialog-content'),toastNode=document.querySelector('#toast');
   let timer,previousFocus;
   const closeDialog=()=>dialog.close();
-  const click=event=>{if(event.target.closest('[data-action="close-dialog"]'))closeDialog();};
+  /*
+   * Clicking the dimmed backdrop closes informational dialogs. The press must start and end on the
+   * backdrop (so selecting text and releasing outside does not close it), and dialogs holding a form
+   * stay open so typed input is never lost; those close with Hủy, the X button or Esc.
+   */
+  let pressedBackdrop=false;
+  const pointerdown=event=>{pressedBackdrop=event.target===dialog;};
+  const click=event=>{
+    if(event.target.closest('[data-action="close-dialog"]')){closeDialog();return;}
+    if(event.target===dialog&&pressedBackdrop&&!content.querySelector('form'))closeDialog();
+    pressedBackdrop=false;
+  };
   const close=()=>{content.innerHTML='<h2 id="dialog-title" class="sr-only">Hộp thoại</h2>';previousFocus?.focus?.({preventScroll:true});};
-  dialog.addEventListener('click',click);dialog.addEventListener('close',close);
+  dialog.addEventListener('pointerdown',pointerdown);dialog.addEventListener('click',click);dialog.addEventListener('close',close);
   return {
     toast(message){clearTimeout(timer);toastNode.textContent=message;toastNode.classList.add('visible');timer=setTimeout(()=>toastNode.classList.remove('visible'),4500);},
     openDialog({title,body,actions=''}){
       previousFocus=document.activeElement;
-      content.innerHTML=`<div class="dialog-head"><h2 id="dialog-title">${escapeHtml(title)}</h2><button class="icon-button" data-action="close-dialog" aria-label="Đóng">${icon('x')}</button></div><div class="dialog-body">${body}</div>${actions?`<div class="dialog-actions">${actions}</div>`:''}`;
+      content.innerHTML=`<div class="dialog-head"><h2 id="dialog-title">${escapeHtml(title)}</h2><button type="button" class="icon-button" data-action="close-dialog" aria-label="Đóng" title="Đóng (Esc)">${icon('x')}</button></div><div class="dialog-body">${body}</div>${actions?`<div class="dialog-actions">${actions}</div>`:''}`;
       if(!dialog.open)dialog.showModal();
     },closeDialog,
-    destroy(){clearTimeout(timer);dialog.removeEventListener('click',click);dialog.removeEventListener('close',close);}
+    destroy(){clearTimeout(timer);dialog.removeEventListener('pointerdown',pointerdown);dialog.removeEventListener('click',click);dialog.removeEventListener('close',close);}
   };
 }
