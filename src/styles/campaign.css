@@ -15,7 +15,9 @@
 .full-width { grid-column: 1 / -1; }
 .field label, .field-label { font-size: 16px; font-weight: 500; line-height: 1.5; }
 .required { margin-left: 4px; color: var(--danger); }
-.field input, .field textarea, .field select { display: block; width: 100%; min-width: 0; min-height: 54px; padding: 14px 16px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; font-size: 16px; line-height: 1.65; }
+.field input, .field textarea, .field select { display: block; width: 100%; min-width: 0; min-height: 54px; padding: 14px 16px; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); font-size: 16px; line-height: 1.65; transition: border-color var(--dur-fast), box-shadow var(--dur-fast); }
+.field input:hover:enabled:not([readonly]), .field textarea:hover:enabled:not([readonly]), .field select:hover:enabled { border-color: var(--muted); }
+.field input:focus-visible, .field textarea:focus-visible, .field select:focus-visible { border-color: var(--primary); outline-offset: 1px; }
 .field textarea { min-height: 112px; resize: vertical; }
 .field small { font-size: 14px; line-height: 1.7; color: var(--muted); }
 .field [aria-invalid="true"] { border-color: var(--danger); background: var(--danger-bg); }
@@ -35,7 +37,7 @@
 .position-title { min-width: 0; font-size: 16px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
 .position-title small { display: block; margin-top: 3px; font-size: 14px; font-weight: 400; color: var(--muted); overflow-wrap: anywhere; }
 .position-quota { color: var(--muted); font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.position-item summary > .icon { width: 16px; height: 16px; color: var(--muted); transition: transform 160ms; }
+.position-item summary > .icon { width: 16px; height: 16px; color: var(--muted); transition: transform var(--dur) var(--ease-out); }
 .position-item[open] summary > .icon { transform: rotate(180deg); }
 .position-content { padding: 6px 0 25px 56px; }
 .position-content > .field { margin-top: 20px; }
@@ -97,3 +99,11 @@
   .form-bottom > div .button { flex: 1; padding-inline: 12px; }
   .preview-content { padding: 24px 20px; }
 }
+
+/* Position accordion: the whole summary row reacts to the pointer. */
+.position-item summary { margin-inline: -8px; padding-inline: 8px; transition: background var(--dur-fast); border-radius: var(--radius-sm); }
+@media (hover: hover) {
+  .position-item summary:hover { background: var(--subtle); }
+  .position-item summary:hover > .icon { color: var(--link); }
+}
+.position-item summary:active { background: var(--mint); }

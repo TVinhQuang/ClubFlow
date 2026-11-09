@@ -1,4 +1,4 @@
-.site-header { position: fixed; inset: 0 0 auto; z-index: 40; background: var(--surface); }
+.site-header { position: fixed; inset: 0 0 auto; z-index: 40; background: var(--surface); border-bottom: 1px solid var(--line); transition: box-shadow var(--dur); }
 .site-header.scrolled { box-shadow: 0 2px 12px rgba(23, 31, 56, .06); }
 .header-inner { max-width: var(--shell-width); margin: auto; height: var(--header-layout-height); padding: 20px 36px; display: flex; align-items: center; gap: 28px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--ink); font-size: 25px; font-weight: 750; letter-spacing: -.8px; white-space: nowrap; line-height: 1; }
@@ -6,9 +6,10 @@
 .brand-symbol .icon { width: 27px; height: 27px; stroke-width: 1.9; }
 .brand-period { color: var(--link); }
 .site-navigation { display: flex; align-items: center; gap: 26px; margin: auto; }
-.site-navigation > a { min-height: 44px; display: flex; align-items: center; font-size: 16px; color: var(--muted); white-space: nowrap; }
+.site-navigation > a { position: relative; min-height: 44px; display: flex; align-items: center; font-size: 16px; font-weight: 500; color: var(--muted); white-space: nowrap; transition: color var(--dur-fast); }
 .site-navigation > a:hover, .site-navigation > a.active { color: var(--link); }
 .site-navigation > a.active { font-weight: 600; }
+.site-navigation > a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 4px; height: 2px; border-radius: 2px; background: var(--primary); }
 .header-actions { display: flex; align-items: center; gap: 15px; margin-left: auto; }
 .header-cta { min-height: 46px; padding: 12px 18px; white-space: nowrap; }
 .theme-toggle { color: var(--ink); }
@@ -24,7 +25,9 @@ html[data-theme="dark"] .theme-sun { display: block; }
 .account-label strong { display: block; font-size: 16px; line-height: 1.4; font-weight: 600; white-space: nowrap; }
 .account-label small { display: block; margin-top: 2px; font-size: 14px; color: var(--muted); }
 .account-trigger > .icon { width: 14px; height: 14px; margin: 0 3px; color: var(--muted); }
-.account-menu { position: absolute; z-index: 60; top: calc(100% + 14px); right: 0; width: 290px; max-width: calc(100vw - 32px); padding: 8px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--surface); box-shadow: 0 12px 38px rgba(24, 28, 49, .13); }
+.account-menu { position: absolute; z-index: 60; top: calc(100% + 12px); right: 0; width: 290px; max-width: calc(100vw - 32px); padding: 8px; border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); background: var(--surface); box-shadow: var(--overlay-shadow); }
+.account-menu:not([hidden]) { animation: menu-in var(--dur-fast) var(--ease-out); }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } }
 .account-menu-head { padding: 14px 12px 18px; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 3px 11px; align-items: center; }
 .account-menu-head img { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; grid-row: 1 / 3; }
 .account-menu-head strong { font-size: 16px; overflow-wrap: anywhere; }
@@ -33,6 +36,22 @@ html[data-theme="dark"] .theme-sun { display: block; }
 .account-menu-item > .icon { width: 18px; height: 18px; color: var(--muted); }
 .account-menu-item:hover { color: var(--link); background: var(--mint); }
 .account-menu-divider { height: 1px; margin: 6px 4px; background: var(--line); border: 0; }
+.account-initials { display: grid; place-items: center; color: var(--link); font-size: 14px; font-weight: 600; }
+.account-menu-head .account-menu-avatar { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; grid-row: 1 / 3; background: var(--mint); }
+.account-menu-danger, .account-menu-danger > .icon { color: var(--danger); }
+.account-menu-danger:hover { color: var(--danger); background: var(--danger-bg); }
+.notify-wrap { position: relative; flex-shrink: 0; }
+.notify-trigger { position: relative; color: var(--ink); }
+.notify-count { position: absolute; top: 4px; right: 2px; min-width: 20px; height: 20px; padding: 0 4px; border-radius: 999px; background: var(--danger); color: var(--surface); font-size: 12px; font-weight: 700; line-height: 20px; text-align: center; }
+.notify-panel { width: 340px; }
+.notify-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 8px 8px 12px; }
+.notify-list { margin: 0; padding: 0; list-style: none; max-height: 360px; overflow-y: auto; }
+.notify-list li > a, .notify-list li > div { display: flex; flex-direction: column; gap: 4px; min-height: 44px; padding: 12px; border-radius: 7px; font-size: 14px; line-height: 1.5; }
+.notify-list li > a:hover { background: var(--mint); }
+.notify-list li.unread > a, .notify-list li.unread > div { background: var(--subtle); font-weight: 500; }
+.notify-list small { color: var(--muted); font-size: 12px; font-weight: 400; }
+.notify-empty { margin: 0; padding: 16px 12px; color: var(--muted); font-size: 14px; }
+.no-js .notify-wrap { display: none; }
 .workspace-context { max-width: var(--solid-width); margin: auto; padding: 28px 36px 0; }
 .workspace-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
 .workspace-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 16px; line-height: 1.7; }
@@ -41,19 +60,21 @@ html[data-theme="dark"] .theme-sun { display: block; }
 .workspace-breadcrumb > .icon { width: 12px; height: 12px; color: var(--muted); }
 .workspace-breadcrumb > span { font-weight: 500; }
 .workspace-identity { color: var(--muted); font-size: 14px; }
-.workspace-workflow { position: sticky; top: var(--header-height); z-index: 30; max-width: var(--solid-width); margin: auto; padding: 8px 36px; background: var(--surface); }
-.workflow-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 8px 24px rgba(45, 74, 170, .05); overflow: hidden; }
-.workflow-tabs > a { position: relative; min-width: 0; min-height: 98px; padding: 24px 26px; display: flex; align-items: center; gap: 18px; }
+.workspace-workflow { position: sticky; top: var(--header-height); z-index: 30; max-width: var(--solid-width); margin: auto; padding: 8px 36px; background: var(--ground); }
+.workflow-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--panel-shadow); overflow: hidden; }
+.workflow-tabs > a { position: relative; min-width: 0; min-height: 98px; padding: 24px; display: flex; align-items: center; gap: 16px; transition: background var(--dur-fast); }
 .workflow-tabs > a + a::before { content: ""; position: absolute; left: 0; top: 26px; bottom: 26px; width: 1px; background: var(--line); }
 .workflow-tabs > a:hover { background: var(--subtle); }
 .workflow-tabs > a.active::after { content: ""; position: absolute; inset: auto 0 0; height: 3px; background: var(--primary); border-radius: 4px 4px 0 0; }
 .step-number { width: 48px; height: 48px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }
-.workflow-tabs .active .step-number { color: #fff; background: var(--primary); border-color: var(--primary); }
+.workflow-tabs .active .step-number { color: var(--on-primary); background: var(--primary); border-color: var(--primary); }
+.workflow-tabs > a.active { background: var(--mint); }
+.workflow-tabs > a.active strong { color: var(--link); }
 .workflow-tabs strong { display: block; font-size: 16px; font-weight: 600; line-height: 1.5; }
 .workflow-tabs small { display: block; color: var(--muted); font-size: 14px; line-height: 1.5; margin-top: 4px; }
 .workflow-tabs > a > .icon { width: 15px; height: 15px; margin-left: auto; color: var(--muted); }
 #main { max-width: var(--solid-width); margin: 0 auto; padding: 40px 36px 72px; min-height: 60vh; scroll-margin-top: calc(var(--header-height) + var(--workflow-height) + 16px); outline: none; }
-.site-footer { max-width: calc(var(--shell-width) - 72px); margin: auto; border-top: 1px solid var(--line); padding: 24px 0 28px; color: var(--muted); }
+.site-footer { width: calc(100% - 72px); max-width: calc(var(--shell-width) - 72px); margin: auto; border-top: 1px solid var(--line); padding: 24px 0 28px; color: var(--muted); }
 .site-footer p { margin: 0; font-size: 14px; }
 .no-js body { padding-top: 0; }
 .no-js .site-header { position: static; }
@@ -76,6 +97,7 @@ html[data-theme="dark"] .theme-sun { display: block; }
   .site-navigation.is-open { display: flex; flex-direction: column; align-items: stretch; gap: 2px; }
   .site-navigation > a { padding: 9px 14px; }
   .site-navigation > a.active { background: var(--mint); border-radius: 7px; }
+  .site-navigation > a.active::after { display: none; }
   .workflow-tabs > a { gap: 12px; padding: 20px 16px; }
   .step-number { width: 40px; height: 40px; }
   .workflow-tabs > a > .icon { display: none; }
@@ -91,6 +113,7 @@ html[data-theme="dark"] .theme-sun { display: block; }
   .account-avatar { width: 36px; height: 36px; }
   .account-trigger > .icon { display: none; }
   .account-menu { right: -44px; }
+  .notify-panel { position: fixed; top: var(--header-height); left: 16px; right: 16px; width: auto; }
   .workspace-context { padding: 18px 18px 0; }
   .workspace-meta { margin-bottom: 14px; }
   .workspace-breadcrumb { gap: 8px; font-size: 14px; }
@@ -101,5 +124,21 @@ html[data-theme="dark"] .theme-sun { display: block; }
   .workflow-tabs strong { font-size: 14px; line-height: 1.4; }
   .workflow-tabs small { display: none; }
   #main { padding: 28px 18px 48px; }
-  .site-footer { margin-inline: 18px; padding: 20px 0 24px; }
+  .site-footer { width: calc(100% - 36px); margin-inline: 18px; padding: 20px 0 24px; }
+}
+
+/* Pointer feedback for the shell: same 150–200ms rhythm everywhere. */
+.account-trigger, .account-menu-item, .notify-list li > a, .workspace-breadcrumb > a { transition: background var(--dur-fast), color var(--dur-fast); }
+.account-trigger:active { background: var(--mint); }
+.account-menu-item:active, .notify-list li > a:active { background: var(--mint-strong); }
+.site-navigation > a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 4px; height: 2px; border-radius: 2px; background: var(--primary); transform: scaleX(0); transition: transform var(--dur) var(--ease-out); }
+.site-navigation > a:hover::after, .site-navigation > a.active::after { transform: scaleX(1); }
+.site-navigation > a:not(.active):hover::after { opacity: .35; }
+.workflow-tabs > a > .icon { transition: transform var(--dur) var(--ease-out), color var(--dur-fast); }
+.workflow-tabs > a:active { background: var(--mint); }
+@media (hover: hover) {
+  .workflow-tabs > a:hover > .icon { transform: translateX(3px); color: var(--link); }
+}
+@media (max-width: 1023px) {
+  .site-navigation > a::after { display: none; }
 }
