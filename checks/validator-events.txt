@@ -1,0 +1,9 @@
+W3C Nu Html Checker result — events.html
+Checker: https://validator.w3.org/nu/ (file content uploaded as text/html; JSON output)
+Checked at: 2026-11-09T03:27:34.841Z (UTC)
+Submitted file SHA-256: e2f88de03e7c51b5e673a23e423eff84c358a113967ca7b2c0dacfb44a491807
+Errors: 0    Warnings: 0
+
+Document checking completed. No errors or warnings to show.
+
+Raw checker response: checks/w3c/events.json

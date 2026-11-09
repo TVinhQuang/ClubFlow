@@ -1,0 +1,9 @@
+W3C Nu Html Checker result — login.html
+Checker: https://validator.w3.org/nu/ (file content uploaded as text/html; JSON output)
+Checked at: 2026-11-09T03:27:34.841Z (UTC)
+Submitted file SHA-256: 984e59a967fb9b0dc5b3b49acee9c56a6496dfe898b555ccdf01b5eb01f2e865
+Errors: 0    Warnings: 0
+
+Document checking completed. No errors or warnings to show.
+
+Raw checker response: checks/w3c/login.json

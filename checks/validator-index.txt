@@ -1,0 +1,9 @@
+W3C Nu Html Checker result — index.html
+Checker: https://validator.w3.org/nu/ (file content uploaded as text/html; JSON output)
+Checked at: 2026-11-09T03:27:34.841Z (UTC)
+Submitted file SHA-256: 3d77eb53c951cd0291b5af3f2cf79619ea8a5720a8724f923d8a86f67afe2e3c
+Errors: 0    Warnings: 0
+
+Document checking completed. No errors or warnings to show.
+
+Raw checker response: checks/w3c/campaign.json

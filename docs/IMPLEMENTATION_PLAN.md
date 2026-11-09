@@ -1,5 +1,7 @@
 ﻿# ClubFlow PA2 — A's handoff plan
 
+> **Status update 2026-11-09:** this file records Quang's original 2026-11-07/08 handoff. Since then Screen 2 (Thành) and Screen 3 (Cường) were implemented, and branch `feature/c` added role pages, filled the public pages and reorganised folders (see README "Folder structure" and AI-LOG). Statements below that call Screens 2/3 or public pages "blank" describe the handoff state, not the current repository.
+
 ## Agreed scope
 
 - Trần Vinh Quang (24127523): shared foundation and campaign-creation screen.

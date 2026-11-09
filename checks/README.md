@@ -1,3 +1,63 @@
+# Verification
+
+Rubric evidence: W3C results per page are `checks/validator-<page>.txt`; screenshots are in `screenshots/` (JavaScript off).
+
+## 2026-11-09 — full prototype on `feature/c` (Nguyễn Thái Cường + Claude Code)
+
+| Command | Observed result |
+| --- | --- |
+| `node scripts/generate.mjs` | Passed; 12 static HTML pages generated |
+| `node --test` | Passed; 46 tests, 46 passed, zero failed |
+| `node scripts/check.mjs` | Passed; 12 pages checked for local references, one h1, unique IDs, label targets and CSS structure |
+| `node scripts/build.mjs` | Passed; static output in `dist/` |
+
+Browser checks in the Claude desktop built-in browser against `npm run dev` (http://127.0.0.1:4173):
+
+- Screen 3: seed draft shows HS-002/HS-005 as a real overlap; resolving HS-005 to 08:40 removed the conflict and the totals line read `4 = 3 + 0 + 1 + 0`. Save showed the saved state. The confirm dialog listed three real blockers (campaign not published, 3 pending reviews, 1 unassigned) and kept "Xác nhận lịch" disabled.
+- Screen 2: page 2 showed "Hiển thị 6–8 trong 8 hồ sơ"; sort select and submission-time column present.
+- Applicant flow: after publishing the sample campaign on screen 1 and signing in as Bùi Đăng Khoa, an empty submit listed 4 errors; a valid submit (PDF attached through the browser test tool) created HS-009 with merged availability 08:00–10:00 and an Executive notification; a second submit for the same position was refused with a link to the existing application. Applicant access to `schedule.html` showed the role notice.
+- Interviewer and results pages were rendered with a temporarily injected `confirmedAt` in localStorage (rendering check only; removed afterwards, and all `clubflow.*` test keys were cleared).
+- Horizontal overflow: 375px — `index`, `applications`, `schedule`, `results`, `discover`, `recruitment`, `events`, `profile`, `login` had `scrollWidth` 375 after fixes; 768px — `schedule` and `applications` within the viewport. Dark theme checked on screen 3.
+- Fixed during this check: screen 3 table was cramped beside the config at 1280px (config now stacks above below 1440px); the sticky action bar could hide focused rows (now static); screen 2 overflowed at 375px because an `sr-only` header escaped `.table-scroll` (now `position: relative`); the shared footer touched the viewport edge below 1440px.
+
+### Later checks the same day (after the UX passes and folder reorganisation)
+
+| Command | Observed result |
+| --- | --- |
+| `node --test` | Passed; 50 tests, 50 passed, zero failed (adds `tests/public-pages.test.js`) |
+| `node scripts/check.mjs` | Passed; 12 pages |
+| `node scripts/build.mjs` | Passed (one transient Windows file-lock error on `index.html`, passed on immediate rerun) |
+
+- Screenshots: nine full-page images in `screenshots/`, captured with device-width emulation; each page's `scrollWidth` equalled its viewport (360/768/1280). Method and a discarded first attempt are described in `screenshots/README.md`.
+- JavaScript disabled (DevTools `setScriptExecutionDisabled`): `index.html`, `schedule.html` and `discover.html` render their full static content with the static header navigation. All 12 generated pages contain static main content. Time-relative text (countdowns, "current step", timeline progress labels) is omitted from the static snapshot so it cannot go stale.
+- Keyboard: first Tab reaches the visible skip link; Enter on a schedule "Giải quyết" button opens the dialog with focus on its first select; Escape closes it and returns focus (with a visible outline) to the same button. Screen 1: publishing with an empty campaign name shows the error summary, sets `aria-invalid` and the linked `campaign-name-error` text and focuses the field; the Preview dialog returns focus to its trigger.
+- Mobile fixes found by the screenshots: Screen 2/3 table names and IDs no longer stack word by word at 768px; on phones the schedule cards wrap IDs inside the card and the two availability time inputs stack so "08:00 AM" is not clipped.
+
+### W3C Nu validation — 2026-11-09 (12 pages)
+
+Cường explicitly authorized uploading the generated HTML to the public W3C Nu validator. `node scripts/generate.mjs` then `node scripts/validate-w3c.mjs` submitted all twelve pages (file content as text/html) to `https://validator.w3.org/nu/?out=json` at 2026-11-09T03:16:14Z, and again at 2026-11-09T03:27:34Z after the visible-label, tap-target and long-name changes; both runs returned zero errors and zero warnings. The SHA-256 of each submitted file is in [summary.json](w3c/summary.json) and matches the HTML in the repository. Per-page results in the rubric's naming are `checks/validator-<page>.txt` (for example [validator-index.txt](validator-index.txt)).
+
+| HTML file | Errors | Warnings | Raw result |
+| --- | ---: | ---: | --- |
+| `index.html` | 0 | 0 | [campaign.json](w3c/campaign.json) |
+| `applications.html` | 0 | 0 | [applications.json](w3c/applications.json) |
+| `schedule.html` | 0 | 0 | [schedule.json](w3c/schedule.json) |
+| `results.html` | 0 | 0 | [results.json](w3c/results.json) |
+| `interviews.html` | 0 | 0 | [interviews.json](w3c/interviews.json) |
+| `apply.html` | 0 | 0 | [apply.json](w3c/apply.json) |
+| `my-applications.html` | 0 | 0 | [mine.json](w3c/mine.json) |
+| `discover.html` | 0 | 0 | [discover.json](w3c/discover.json) |
+| `recruitment.html` | 0 | 0 | [recruitment.json](w3c/recruitment.json) |
+| `events.html` | 0 | 0 | [events.json](w3c/events.json) |
+| `profile.html` | 0 | 0 | [profile.json](w3c/profile.json) |
+| `login.html` | 0 | 0 | [login.json](w3c/login.json) |
+
+Scope: this validates the generated static HTML (sample data, including the inline theme script). It does not validate HTML produced later by JavaScript, external CSS or responsive layout. If any page is regenerated after a source change, rerun the validator, because the hashes will no longer match.
+
+Assessment submission after an interview's start time and results publication were verified by unit tests only, because the real date is before the interview day.
+
+---
+
 # Screen 1 verification
 
 Last verified on 2026-11-08 with Node.js v24.19.0 and npm 11.17.0.

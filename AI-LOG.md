@@ -2,6 +2,70 @@
 
 This log records assistant involvement in the current ClubFlow handoff. It does not attribute assistant-generated code to a human team member. The team owns the submitted result and must be able to explain it. Earlier prompts, manual edits or checks are not reconstructed without evidence.
 
+## 2026-11-09 — Fixes from a rubric self-check (Nguyễn Thái Cường)
+
+Tool: Claude Code. Asked for: read `PA2-rubric-responsive-prototype.md`, grade the project as a teacher would, then fix items 1–6.
+
+Caught by checks: a CDP script that opens the pages from the folder with JavaScript off at 360/768/1280 (same measurements the rubric lists) found that Screen 2's search, sort and position controls had only screen-reader labels (rubric: visible label), and that its row buttons were 36px and 42px tall at 360px (rubric: 44px). The rubric also asks for a long item; none existed. The first JS-off screenshot then showed the new long name cut off inside the Screen 2 table.
+
+Changed: visible labels "Tìm hồ sơ", "Sắp xếp", "Vị trí"; 44px row buttons; sample application HS-009 "Công Tằng Tôn Nữ Phương Thảo Nguyên" (shortlisted, with a proposed 10:00 slot so it appears on Screens 2 and 3) and the next-ID test updated to HS-010; names wrap on phones with a minimum column width; `PROTOTYPE.md` rewritten in the six sections the rubric requires (it previously said not to open pages from `file://`, which is how marking works with JavaScript off); README run note corrected; nine screenshots recaptured with JavaScript off and renamed `index-*`, `applications-*`, `schedule-*`; W3C rerun (12 pages, 0 errors, 0 warnings) and `checks/validator-<page>.txt` written from the reports.
+
+Rejected: rewriting `brief.md` to add constraints after the fact (it must stay what was actually given); enlarging the three 17px links inside the Screen 3 notice sentences, which the rubric exempts as in-sentence links.
+
+Verification: 50/50 tests, 12-page check, build; JS-off audit of all 12 pages with no horizontal scroll, overflow, heading skips, unlabeled inputs, missing alt or broken links; measured the long name wrapping to two lines inside the table wrapper at 360px.
+
+## 2026-11-09 — W3C Nu validation of the 12 pages (Nguyễn Thái Cường)
+
+Cường wrote "Đồng ý chạy W3C". `node scripts/generate.mjs` and `node scripts/validate-w3c.mjs` uploaded the twelve generated pages to `https://validator.w3.org/nu/?out=json` (2026-11-09T03:16:14Z): every page returned zero errors and zero warnings, so no HTML changes were needed. Raw reports, the summary and file hashes are in `checks/w3c/`; `checks/README.md`, `PROTOTYPE.md` and `README.md` record the result. Scope: static generated HTML only.
+
+## 2026-11-09 — Remaining plan items: screenshots, Screen 1 checks, no-JS and keyboard (Nguyễn Thái Cường)
+
+Captured the nine required screenshots with headless Chrome through the DevTools Protocol (device-width emulation). A first attempt with `--window-size=360` was discarded because headless Chrome enforces a ~500px minimum width and produced cropped wide layouts. The screenshots exposed, and this pass fixed, stacked names/IDs in Screen 2/3 tables at 768px, IDs overflowing schedule cards on phones and clipped time inputs on phones. Checked Screen 1 errors/labels/dialog focus, keyboard skip link and dialog focus return, and JavaScript-disabled rendering; static HTML no longer contains time-relative text (countdowns, current step) that would go stale. Updated `screenshots/README.md`, `checks/README.md` and the `PROTOTYPE.md` checklist. Still open: W3C rerun (needs authorization to upload), Quang/Thành review, `SELF_ASSESSMENT` and the submission ZIP (team decisions).
+
+## 2026-11-09 — Screen 3 config panel fixes and pointer/scroll presence (Nguyễn Thái Cường)
+
+From Cường's screenshot of the interviewer settings: the fieldset legend straddled the card border, position choices took one row each, time inputs clipped "08:00 AM", and the panel had its own scroll inside the page scroll (ui-ux-pro-max: avoid nested scroll regions). Fixed in `schedule.css`: legend floated inside the card, positions two per row, narrower input padding, no sticky/inner scroll, and the configuration now always sits above the timetable because beside it the 7-column table wrapped names onto three lines (date/time/duration on one row, three interviewer cards side by side). Pointer and scroll presence (`common.css`, `app.js`): content cards get a border tint on hover only (no lift or pointer cursor, so they don't look clickable); below-the-fold blocks on reading pages (discover, recruitment, timeline, profile, login, my applications, interviews) rise in once via IntersectionObserver (360ms, 40ms stagger), never on management screens that re-render; a soft light follows a fine pointer inside the Discover hero. All skip touch-only input and reduced motion; print always shows content. Verification: 50/50 tests, 12-page check, build; browser measurements at 1500px (no inner scroll, legend inside card, input not clipped, names on one line), reveal completed after real scrolling, hero light tracked the pointer, 375px without horizontal overflow.
+
+## 2026-11-09 — Discover, Recruitment and Timeline UX pass with the ui-ux-pro-max skill (Nguyễn Thái Cường)
+
+Skill guidance used: landing pattern "Hero + features + CTA" (primary action in the hero and repeated at the end), helpful empty states with an action, progressive disclosure for secondary content. Changes in `src/features/public/` and `src/styles/public.css`: one primary hero action per role (visitor → open positions, applicant → apply, executive → manage, interviewer → schedule; timeline when nothing is published); a deadline countdown and intake progress bar computed from the campaign dates; an "open positions" grid whose cards deep-link to `recruitment.html#role-<id>`; the journey highlights the current step from the same milestones as the timeline; a five-question FAQ written from the brief's rules (no invented statistics); a closing CTA band. Recruitment: jump links, deep-linked card highlight and focus after render, countdown in the ribbon, "Ứng tuyển vị trí này" per card that preselects the position on `apply.html?position=<id>`. Timeline: "current phase / next milestone" cards with days remaining, filled connector for finished milestones and a role-specific action on the current step. Added `tests/public-pages.test.js` (50/50 tests pass). Browser checks: unpublished and published states, applicant CTA and deep link + prefill, timeline wording, 375px overflow on discover/recruitment/events, dark theme on discover. Test data in the browser was cleared afterwards.
+
+## 2026-11-09 — Pointer interaction pass with the ui-ux-pro-max skill (Nguyễn Thái Cường)
+
+Skill guidance used (ux domain): visible hover change and pointer cursor on every clickable element, a distinct pressed state, no hover/press on disabled controls, never rely on hover alone, smooth scrolling for anchors, shared motion tokens, reduced-motion respected. Fixed: link buttons (`<a class="button-quiet">`, `button-danger`) had no hover because rules used `:hover:enabled`; now `:not(:disabled)` for buttons and links, with pressed states for every variant and icon buttons. Forward arrows nudge on hover and workflow-step chevrons slide (pointer devices only). Nav links show a growing underline. The Screen 1 position accordion, Screen 2 search/filter inputs and table rows got hover/press feedback; clicking anywhere on a Screen 2 row opens that applicant (buttons remain the keyboard path). Dialogs close when the press starts and ends on the backdrop, except dialogs containing a form (no lost input). Icon-only buttons have tooltips. Hard-coded 120/150/160ms timings replaced by tokens. Verification: 46/46 tests, 12-page check, build; browser checks for row click, backdrop close (with and without form), link-button hover colour, and 375px overflow on index/applications/schedule.
+
+## 2026-11-09 — Folder reorganisation (Nguyễn Thái Cường)
+
+Asked for: review the boilerplate layout and arrange the project folders sensibly. Kept at the root: the 12 generated pages (dev server, relative links, `index.html` as first page) and the submission documents. Moved: `src/features/portal/` → `applicant/`; login/profile split from `public/` into `account/`; `assessments/store.js` → `interviews/store.js`; `src/styles/pages.css` split into `common.css`, `public.css`, `account.css`, `applicant.css`, `interviews.css`, `results.css`; `assets/discovery/avatar.png` → `assets/images/`; `assets/solid/LICENSE.txt` → `assets/licenses/solid-template-LICENSE.txt`; `assets/fonts.css` → `assets/fonts/`; `tests/roles-and-portal.test.js` → `roles-pages.test.js`. Not renamed: Quang's and Thành's files (e.g. `campaign/controller.js`) to avoid merge conflicts. Updated README (folder map), AGENTS (stylesheet list), `docs/IMPLEMENTATION_PLAN.md` status note and the W3C summary scope text. Verification: 46/46 tests, 12-page check and build passed; browser check of fonts, avatar, profile/login/results with no console errors.
+
+## 2026-11-09 — Dark-mode flash and "page reset" fix (Nguyễn Thái Cường)
+
+Reported: every click felt like the page reset, and in dark mode the screen flashed light. Causes: generated HTML always started with `data-theme="light"` and `app.js` applied the saved theme only after loading, so each page navigation painted light first while button colours transitioned; the new entrance animation replayed whenever a screen re-rendered (Save, Apply, Publish). The notification bell also appeared only after JS, shifting the header. Fix: a small inline script in `<head>` (before stylesheets) applies the saved theme and marks only the first page of a browser session for the entrance animation; `app.js` removes that class after 600ms; the bell is present in static HTML. Verified in the browser: dark theme set before CSS/app.js, no entrance animation on later pages or after Save; 46/46 tests and the 12-page check passed.
+
+## 2026-11-09 — Visual style pass with the ui-ux-pro-max skill (Nguyễn Thái Cường)
+
+Tool: Claude Code with the ui-ux-pro-max skill. Its design-system search recommended a flat SaaS style for a three-step funnel with subtle 150–200ms motion. Its suggested palette and font were **not** adopted because AGENTS.md fixes brand blue/navy and Inter.
+
+Changed: `tokens.css` (tinted page ground, hairline-bordered white cards, elevation/radius/motion tokens, dark-theme counterparts, slightly darker muted text), `base.css` (button press feedback, dialog/menu entrance, one staggered page entrance, global reduced-motion rule, notices on card surface), `shell.css` (header divider, active nav underline, workflow band on ground with highlighted current step), stronger input borders and focus border, shaded table headers, hover/press states for clickable cards. Verification: 46/46 tests, 12-page check and build passed; 375px overflow checks on applications, schedule, index and login; dark theme checked on discover.
+
+## 2026-11-09 — Screen 3, role pages and cross-screen completion (Nguyễn Thái Cường)
+
+Tool: Claude Code (Claude Opus 5.5) in the Claude desktop app, branch `feature/c`.
+
+Asked for: Read the boilerplate and `ClubFlow-final-project-brief.md`, implement Screen 3, then — at Cường's explicit request — complete the whole prototype, including missing role screens and fixes to Screens 1/2, using the ui-ux-pro-max skill for the UI pass.
+
+Changed (assistant-written, owned by Cường for review):
+- Screen 3 (`src/features/schedule/`, `src/styles/schedule.css`): one interview date, 15/20/30-minute slots, interviewers assigned to positions with availability, rooms from a fixed list, sequential first-fit draft, real applicant/interviewer/room conflicts, unassigned reasons, Edit/Resolve/Assign dialog with live checks, Save, CSV export, Approve & Confirm with blockers (deadline, pending reviews, unassigned, conflicts) and read-only after confirmation.
+- New pages: `login.html` (sample accounts, no passwords), `apply.html`, `my-applications.html`, `interviews.html`, `results.html`; filled `discover.html`, `recruitment.html`, `events.html` (recruitment timeline), `profile.html`. New shared modules `src/shared/{accounts,session,notifications,shell}.js`, stores for assessments and results, `src/styles/pages.css`.
+- Shared files (Quang's area): `src/app.js` (services, role guard, role-aware header, in-app notifications), `src/templates/layout.js`, `scripts/generate.mjs` (12 pages), `scripts/check.mjs`, `src/shared/ui.js` (icons, `downloadCsv`), `shell.css` footer width. Screen 1 controller becomes read-only after schedule confirmation.
+- Screen 2 (Thành's area): sorting, real pagination, submission-time column, live intake status, shared stores, read-only after confirmation, CV preview without inline styles or hard-coded colours, sample submission times moved to 08–09/11/2026, `create()`/`findDuplicate()` in the store.
+
+Kept: shell layout, tokens, Screen 1 behaviour, Screen 2 structure. Rejected: inventing passwords, email or server success; a demo clock that would bypass the brief's confirmation rules; storing applicant notes where applicants or interviewers can read them.
+
+By hand: Cường chose live shortlisted data, real (not simulated) confirmation blocking, and the full-project scope. Quang and Thành have **not** yet reviewed the changes to their areas.
+
+Verification: see `checks/README.md` (2026-11-09). 46/46 tests, 12-page structural check and build passed; browser checks at 375/768/1280px; W3C not rerun.
+
 ## 2026-11-08 — Screen 2 (Application Review) Implementation by Lê Tấn Thành
 
 Tool: Antigravity.

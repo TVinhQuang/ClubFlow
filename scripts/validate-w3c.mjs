@@ -25,6 +25,6 @@ for(const {file,view} of pages){
   console.log(`${file}: ${result.errors} errors, ${result.warnings} warnings`);
   for(const message of report.messages)if(message.type==='error'||message.subType==='warning')console.log(`  ${message.type}${message.subType?`/${message.subType}`:''} line ${message.lastLine??'?'}: ${message.message}`);
 }
-const summary={checkedAt:new Date().toISOString(),endpoint,scope:'Generated HTML files only. Screens 2/3 and public pages are blank scaffolds; validation does not certify feature completion, responsive layout, or external CSS.',results};
+const summary={checkedAt:new Date().toISOString(),endpoint,scope:'Generated static HTML files only (sample data). Validation does not certify JavaScript-rendered states, responsive layout, or external CSS.',results};
 await writeFile(path.join(output,'summary.json'),JSON.stringify(summary,null,2)+'\n','utf8');
 if(results.some(result=>result.errors>0))process.exitCode=1;

@@ -1,0 +1,9 @@
+W3C Nu Html Checker result — recruitment.html
+Checker: https://validator.w3.org/nu/ (file content uploaded as text/html; JSON output)
+Checked at: 2026-11-09T03:27:34.841Z (UTC)
+Submitted file SHA-256: ccbf96b53751f156cf61cb4aad87d1a7457b343ef784d3cac4b6f3bedeb7e607
+Errors: 0    Warnings: 0
+
+Document checking completed. No errors or warnings to show.
+
+Raw checker response: checks/w3c/recruitment.json
