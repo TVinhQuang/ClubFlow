@@ -1,0 +1,114 @@
+/* Screen 3 — interview scheduling (owner: Nguyễn Thái Cường). Shared tokens only. */
+/* Configuration always sits above the board: beside it, the 7-column timetable got too narrow to read. */
+.schedule-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; margin-bottom: 32px; }
+
+.schedule-main { min-width: 0; }
+/* No sticky inner scroll: a nested scroll region fights the page scroll (ui-ux-pro-max scroll-behavior). */
+.schedule-config { margin: 0; padding: 32px; }
+.schedule-config > p { margin: 8px 0 24px; }
+.schedule-fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.schedule-config-grid { display: grid; grid-template-columns: 2fr repeat(3, minmax(0, 1fr)); gap: 16px; }
+.schedule-config-grid .full-width { grid-column: auto; }
+.schedule-config .field input, .schedule-config .field select { min-height: 48px; padding: 12px; }
+.schedule-subhead { margin: 32px 0 4px; font-size: 16px; font-weight: 600; line-height: 1.5; }
+.schedule-muted { margin: 0; color: var(--muted); font-size: 14px; }
+.schedule-config .schedule-muted { margin-bottom: 16px; }
+.schedule-people { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; outline: none; }
+.schedule-person { min-width: 0; margin: 0; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--subtle); transition: border-color var(--dur-fast); }
+.schedule-person:focus-within { border-color: var(--mint-strong); }
+/* Float the legend inside the card instead of letting it straddle the fieldset border. */
+.schedule-person legend { float: left; display: flex; align-items: center; gap: 12px; width: 100%; padding: 0; margin-bottom: 12px; }
+.schedule-person legend + * { clear: both; }
+.schedule-person legend strong { display: block; font-size: 15px; line-height: 1.4; }
+.schedule-person legend small { display: block; color: var(--muted); font-size: 13px; }
+.schedule-person .avatar { width: 36px; height: 36px; font-size: 13px; }
+.schedule-checks { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+/* Position choices sit two per row inside an interviewer card instead of one long column. */
+.schedule-person .schedule-checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
+.schedule-person .schedule-check { padding: 8px 10px; font-size: 13px; }
+.schedule-check { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); font-size: 14px; line-height: 1.4; cursor: pointer; }
+.schedule-check { transition: border-color var(--dur-fast), background var(--dur-fast), color var(--dur-fast); }
+.schedule-check:hover { border-color: var(--line-strong); }
+.schedule-check input { width: 18px; height: 18px; margin: 0; accent-color: var(--primary); }
+.schedule-check:has(input:checked) { border-color: var(--mint-strong); background: var(--mint); color: var(--link); }
+.schedule-check:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.schedule-fieldset:disabled .schedule-check { cursor: not-allowed; opacity: .75; }
+.schedule-range { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.schedule-range .field { gap: 4px; min-width: 0; }
+/* Time inputs keep the full "08:00 AM" visible next to the native clock icon. */
+.schedule-config .schedule-range input { padding-inline: 8px; font-variant-numeric: tabular-nums; }
+.schedule-range label { font-size: 14px; }
+.schedule-rooms { margin-top: 12px; outline: none; }
+.schedule-generate { margin-top: 24px; }
+.schedule-fieldset [aria-invalid="true"] { border-color: var(--danger); }
+
+.schedule-stats .stat-value { font-size: 30px; }
+.schedule-notice { margin-bottom: 16px; }
+.schedule-notice ul { margin: 8px 0 0; padding-left: 20px; font-size: 14px; }
+.schedule-notice li + li { margin-top: 4px; }
+.schedule-notice a { color: inherit; font-weight: 600; text-decoration: underline; }
+.schedule-notice-danger { color: var(--danger); background: var(--danger-bg); border-color: transparent; }
+.schedule-notice-danger .icon, .schedule-notice-success .icon { color: inherit; }
+.schedule-notice-success { color: var(--success); background: var(--success-bg); border-color: transparent; }
+
+.schedule-board { padding: 24px; }
+.schedule-table { min-width: 860px; }
+.schedule-table td { vertical-align: top; }
+.schedule-table tbody tr:target, .schedule-row:focus-within { background: var(--mint); }
+.schedule-row-conflict td:first-child { box-shadow: inset 3px 0 0 var(--danger); }
+.schedule-row-unassigned td:first-child { box-shadow: inset 3px 0 0 var(--amber); }
+.schedule-time { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.schedule-reason { display: block; max-width: 30ch; margin-top: 8px; color: var(--amber); font-size: 13px; line-height: 1.5; }
+.schedule-issues { margin: 8px 0 0; padding-left: 16px; max-width: 32ch; color: var(--danger); font-size: 13px; line-height: 1.5; }
+.schedule-action-cell { text-align: right; white-space: nowrap; }
+.schedule-pill { white-space: nowrap; }
+.schedule-pill .icon { width: 16px; height: 16px; }
+.schedule-pill-proposed { color: var(--link); background: var(--mint); }
+.schedule-pill-conflict { color: var(--danger); background: var(--danger-bg); }
+.schedule-pill-unassigned { color: var(--amber); background: var(--amber-bg); }
+.schedule-pill-confirmed { color: var(--success); background: var(--success-bg); }
+.schedule-total { margin: 16px 0 0; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+
+.schedule-bottom { box-shadow: var(--panel-shadow); }
+.schedule-bottom-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.schedule-bottom-actions .button-quiet .icon { transform: rotate(180deg); }
+
+.schedule-editor-person { margin: 0 0 16px; font-weight: 600; }
+.schedule-editor-person small { color: var(--muted); font-weight: 400; }
+.schedule-editor-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.schedule-editor-check { min-height: 48px; margin-top: 16px; padding: 12px 16px; border-radius: 8px; background: var(--subtle); }
+.schedule-ok, .schedule-bad { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 500; }
+.schedule-ok { color: var(--success); }
+.schedule-bad { color: var(--danger); }
+.schedule-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0 0 24px; }
+.schedule-summary div { padding: 12px; border-radius: 8px; background: var(--subtle); }
+.schedule-summary dt { color: var(--muted); font-size: 13px; }
+.schedule-summary dd { margin: 4px 0 0; font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 1099px) {
+  .schedule-config-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .schedule-people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .schedule-editor-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+  /* Card layout on phones: names and IDs wrap inside the card, and the two time inputs stack. */
+  .schedule-table .person-name, .schedule-table .person-sub { white-space: normal; }
+  .schedule-range { grid-template-columns: minmax(0, 1fr); }
+  .schedule-config { padding: 24px 16px; }
+  .schedule-people, .schedule-config-grid { grid-template-columns: minmax(0, 1fr); }
+  .schedule-board { padding: 16px; }
+  .schedule-table { min-width: 0; }
+  .schedule-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .schedule-table, .schedule-table tbody, .schedule-table tr, .schedule-table td { display: block; width: 100%; }
+  .schedule-table tr { margin-bottom: 12px; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius); }
+  .schedule-table td { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 8px; padding: 8px 0; border: 0; }
+  .schedule-table td::before { content: attr(data-label); grid-row: 1 / span 3; color: var(--muted); font-size: 13px; font-weight: 600; }
+  .schedule-table td > * { grid-column: 2; }
+  .schedule-row-conflict td:first-child, .schedule-row-unassigned td:first-child { box-shadow: none; }
+  .schedule-row-conflict { border-left: 4px solid var(--danger); }
+  .schedule-row-unassigned { border-left: 4px solid var(--amber); }
+  .schedule-action-cell { text-align: left; }
+  .schedule-action-cell .button { width: 100%; }
+  .schedule-bottom-actions, .schedule-bottom-actions .button { width: 100%; }
+  .schedule-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
