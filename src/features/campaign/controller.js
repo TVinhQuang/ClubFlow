@@ -1,10 +1,13 @@
 import {renderCampaign,renderPreview,fieldId} from './view.js';
 import {canRemovePosition,normalizeCampaign} from './model.js';
-import {escapeHtml} from '../../shared/ui.js';
+import {escapeHtml,icon} from '../../shared/ui.js';
 
 const WORKING_KEY='clubflow.pa2.campaign.working.v1';
-export function mount(container,{campaignStore:store,ui,getApplications=()=>[]}){
+export function mount(container,{campaignStore:store,ui,getApplications=()=>[],scheduleStore}){
   let campaign=store.getDraft(),dirty=false,workingSaved=false;
+  /* Brief: once the interview schedule is confirmed the campaign configuration is read-only. */
+  const locked=Boolean(scheduleStore?.isConfirmed?.());
+  if(locked)campaign=store.getPublished()||campaign;
   let session=null;
   try{
     session=sessionStorage;
@@ -16,6 +19,11 @@ export function mount(container,{campaignStore:store,ui,getApplications=()=>[]})
   };
   function render({focusId,openIds}={}){
     container.innerHTML=renderCampaign(campaign,{...store.getMeta(),dirty});
+    if(locked){
+      const form=container.querySelector('#campaign-form');
+      for(const node of form.querySelectorAll('input,textarea,select,button'))if(node.dataset.action!=='preview')node.disabled=true;
+      form.insertAdjacentHTML('beforebegin',`<div class="notice" role="status">${icon('lock')}<div><strong>Đợt tuyển đã khóa chỉnh sửa</strong><p>Lịch phỏng vấn đã được xác nhận nên thông tin đợt tuyển và vị trí chỉ có thể xem.</p></div></div>`);
+    }
     if(openIds)for(const details of container.querySelectorAll('[data-position-panel]'))details.open=openIds.has(details.dataset.positionPanel);
     if(focusId)document.getElementById(focusId)?.focus({preventScroll:true});
   }
@@ -61,6 +69,7 @@ export function mount(container,{campaignStore:store,ui,getApplications=()=>[]})
   }
   function click(event){
     const action=event.target.closest('[data-action]')?.dataset.action;
+    if(locked&&action!=='preview')return;
     if(action==='preview')ui.openDialog({title:'Xem trước đợt tuyển',body:renderPreview(campaign,{full:true}),actions:'<button type="button" class="button button-primary" data-action="close-dialog">Tiếp tục chỉnh sửa</button>'});
     if(action==='save-draft'){
       store.saveDraft(campaign);campaign=store.getDraft();dirty=false;remember();render({focusId:'campaign-save-draft'});
@@ -83,7 +92,7 @@ export function mount(container,{campaignStore:store,ui,getApplications=()=>[]})
     const openIds=expanded();campaign.positions=campaign.positions.filter(p=>p.id!==id);dirty=true;remember();ui.closeDialog();render({openIds});container.querySelector('[data-action="add-position"]').focus();ui.toast('Đã bỏ vị trí khỏi bản đang chỉnh sửa.');
   }
   function submit(event){
-    if(event.target.id!=='campaign-form')return;event.preventDefault();
+    if(event.target.id!=='campaign-form')return;event.preventDefault();if(locked)return;
     const result=store.publish(campaign);
     if(!result.ok){showErrors(result.errors);return;}
     campaign=store.getDraft();dirty=false;remember();render({focusId:'campaign-publish'});

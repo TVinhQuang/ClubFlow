@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi" class="no-js" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#006bff">
+  <meta name="description" content="ClubFlow — không gian tuyển thành viên câu lạc bộ.">
+  <title>Hồ sơ của tôi · ClubFlow</title>
+  <script>try{var d=document.documentElement;if(localStorage.getItem('clubflow.theme')==='dark'){d.dataset.theme='dark';}if(!sessionStorage.getItem('clubflow.entered')){d.classList.add('page-enter');sessionStorage.setItem('clubflow.entered','1');}}catch(e){}</script>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="src/styles/tokens.css">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/shell.css">
+  <link rel="stylesheet" href="src/styles/common.css">
+  <link rel="stylesheet" href="src/styles/campaign.css">
+  <link rel="stylesheet" href="src/styles/applications.css">
+  <link rel="stylesheet" href="src/styles/schedule.css">
+  <link rel="stylesheet" href="src/styles/results.css">
+  <link rel="stylesheet" href="src/styles/interviews.css">
+  <link rel="stylesheet" href="src/styles/applicant.css">
+  <link rel="stylesheet" href="src/styles/account.css">
+  <link rel="stylesheet" href="src/styles/public.css">
+  <script type="module" src="src/app.js"></script>
+</head>
+<body data-view="mine" data-roles="applicant">
+  <a class="skip-link" href="#main">Đến nội dung chính</a>
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="brand" href="discover.html" aria-label="ClubFlow — Khám phá"><span class="brand-symbol"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5H10a7 7 0 0 0 0 14h5v-7H8m7 0h6"/></svg></span><span>ClubFlow<span class="brand-period">.</span></span></a>
+      <nav class="site-navigation" id="site-navigation" aria-label="Điều hướng chính">
+        <a href="discover.html">Khám phá</a>
+        <a href="recruitment.html">Đợt tuyển thành viên</a>
+        <a href="events.html">Lịch trình tuyển</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button theme-toggle" id="theme-toggle" data-action="theme" aria-label="Chuyển sang giao diện tối" title="Giao diện tối" aria-pressed="false"><span class="theme-moon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.3A9 9 0 0 1 10.7 3.2 9 9 0 1 0 20.8 13.3Z"/></svg></span><span class="theme-sun"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></span></button>
+        <div class="notify-wrap" id="notify-wrap">
+          <button class="icon-button notify-trigger" id="notify-trigger" data-action="notifications" aria-expanded="false" aria-controls="notify-panel" aria-label="Thông báo" title="Thông báo"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg><span class="notify-count" id="notify-count" hidden></span></button>
+          <div class="account-menu notify-panel" id="notify-panel" hidden></div>
+        </div>
+        <a class="button button-secondary header-cta" id="header-cta" href="index.html">Không gian CLB<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></a>
+        <div class="account-wrap" id="account-wrap">
+          <button class="account-trigger" id="account-trigger" data-action="account" aria-expanded="false" aria-controls="account-menu" aria-label="Tài khoản Trần Vinh Quang"><img class="account-avatar" src="assets/images/avatar.png" alt="" width="40" height="40"><span class="account-label"><strong>Trần Vinh Quang</strong><small>Ban điều hành</small></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="account-menu" id="account-menu" hidden>
+            <div class="account-menu-head"><img class="account-menu-avatar" src="assets/images/avatar.png" alt="" width="44" height="44"><strong>Trần Vinh Quang</strong><p>Ban điều hành · Ban tuyển dụng</p></div>
+    <a class="account-menu-item" href="profile.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3"/></svg>Hồ sơ cá nhân</a><a class="account-menu-item" href="index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Không gian quản lý CLB</a><a class="account-menu-item" href="results.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4a3 3 0 0 0 4 4m8-4h4a3 3 0 0 1-4 4M12 14v4m-4 3h8"/></svg>Kết quả tuyển</a>
+    <a class="account-menu-item" href="login.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 20v-1a6 6 0 0 1 12 0v1M16 4.5a3.5 3.5 0 0 1 0 7M18 14a5 5 0 0 1 4 5v1"/></svg>Đổi tài khoản</a>
+    <hr class="account-menu-divider">
+    <button type="button" class="account-menu-item" data-action="theme"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.3A9 9 0 0 1 10.7 3.2 9 9 0 1 0 20.8 13.3Z"/></svg>Đổi chế độ sáng / tối</button>
+    <button type="button" class="account-menu-item account-menu-danger" data-action="sign-out"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/></svg>Đăng xuất</button>
+          </div>
+        </div>
+        <button class="icon-button mobile-menu" id="menu-toggle" aria-label="Mở menu" title="Menu" aria-controls="site-navigation" aria-expanded="false" data-action="menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <div class="workspace-context" id="workspace-context" hidden>
+    <div class="workspace-meta"><nav class="workspace-breadcrumb" aria-label="Vị trí hiện tại"><a href="discover.html">Khám phá CLB</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg><a href="index.html">Không gian quản lý</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg><span id="topbar-current">Hồ sơ của tôi</span></nav><span class="workspace-identity">CLB Truyền thông HCMUS</span></div>
+  </div>
+  <div class="workspace-workflow" id="workspace-workflow" hidden>
+    <nav class="workflow-tabs" aria-label="Ba bước tuyển thành viên">
+      <a href="index.html"><span class="step-number">01</span><span><strong>Chuẩn bị đợt tuyển</strong><small>Thông tin & vị trí</small></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+      <a href="applications.html"><span class="step-number">02</span><span><strong>Tìm người đồng hành</strong><small>Hồ sơ & vòng CV</small></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+      <a href="schedule.html"><span class="step-number">03</span><span><strong>Sắp xếp cuộc gặp</strong><small>Lịch & phỏng vấn</small></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    </nav>
+  </div>
+  <main id="main" tabindex="-1"><div class="page-heading"><div><h1>Hồ sơ ứng tuyển của tôi</h1><p>Trần Gia Huy · MSSV 24120102. Mỗi vị trí được xét riêng.</p></div><div class="heading-actions"><a class="button button-primary" href="apply.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Nộp hồ sơ mới</a></div></div>
+  <div class="mine-list"><article class="mine-card" id="app-HS-002" tabindex="-1" aria-labelledby="app-HS-002-title">
+      <div class="mine-head"><div><h2 id="app-HS-002-title">Thiết kế đồ họa</h2><p>Ban Sáng tạo · HS-002 · Nộp 10:40 08/11/2026</p></div><span class="pill pill-shortlisted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Qua vòng CV</span></div>
+      <ol class="mine-steps"><li class="done"><span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>Đã nộp<span class="sr-only">: đã xong</span></li><li class="done"><span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>Vòng CV<span class="sr-only">: đã xong</span></li><li class=""><span aria-hidden="true"></span>Phỏng vấn<span class="sr-only">: chưa đến</span></li><li class=""><span aria-hidden="true"></span>Kết quả<span class="sr-only">: chưa đến</span></li></ol>
+      <div class="mine-body">
+        <section aria-label="Lịch phỏng vấn"><h3>Lịch phỏng vấn</h3><p class="muted-text">Lịch sẽ hiển thị tại đây khi câu lạc bộ xác nhận.</p></section>
+        <section aria-label="Kết quả"><h3>Kết quả</h3><p class="muted-text">Chưa công bố.</p></section>
+      </div>
+    </article><article class="mine-card" id="app-HS-008" tabindex="-1" aria-labelledby="app-HS-008-title">
+      <div class="mine-head"><div><h2 id="app-HS-008-title">Tổ chức sự kiện</h2><p>Ban Sự kiện · HS-008 · Nộp 08:25 09/11/2026</p></div><span class="pill pill-shortlisted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Qua vòng CV</span></div>
+      <ol class="mine-steps"><li class="done"><span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>Đã nộp<span class="sr-only">: đã xong</span></li><li class="done"><span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>Vòng CV<span class="sr-only">: đã xong</span></li><li class=""><span aria-hidden="true"></span>Phỏng vấn<span class="sr-only">: chưa đến</span></li><li class=""><span aria-hidden="true"></span>Kết quả<span class="sr-only">: chưa đến</span></li></ol>
+      <div class="mine-body">
+        <section aria-label="Lịch phỏng vấn"><h3>Lịch phỏng vấn</h3><p class="muted-text">Lịch sẽ hiển thị tại đây khi câu lạc bộ xác nhận.</p></section>
+        <section aria-label="Kết quả"><h3>Kết quả</h3><p class="muted-text">Chưa công bố.</p></section>
+      </div>
+    </article></div></main>
+  <footer class="site-footer"><p>ClubFlow · Prototype tuyển thành viên CLB · Dữ liệu minh họa lưu trên trình duyệt này; không có máy chủ, mật khẩu hay email thật.</p></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="app-dialog" aria-labelledby="dialog-title"><div id="dialog-content"><h2 id="dialog-title" class="sr-only">Hộp thoại</h2></div></dialog>
+</body>
+</html>

@@ -6,15 +6,24 @@
   <meta name="theme-color" content="#006bff">
   <meta name="description" content="ClubFlow — không gian tuyển thành viên câu lạc bộ.">
   <title>Xếp lịch phỏng vấn · ClubFlow</title>
+  <script>try{var d=document.documentElement;if(localStorage.getItem('clubflow.theme')==='dark'){d.dataset.theme='dark';}if(!sessionStorage.getItem('clubflow.entered')){d.classList.add('page-enter');sessionStorage.setItem('clubflow.entered','1');}}catch(e){}</script>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
   <link rel="stylesheet" href="src/styles/tokens.css">
   <link rel="stylesheet" href="src/styles/base.css">
   <link rel="stylesheet" href="src/styles/shell.css">
+  <link rel="stylesheet" href="src/styles/common.css">
   <link rel="stylesheet" href="src/styles/campaign.css">
+  <link rel="stylesheet" href="src/styles/applications.css">
+  <link rel="stylesheet" href="src/styles/schedule.css">
+  <link rel="stylesheet" href="src/styles/results.css">
+  <link rel="stylesheet" href="src/styles/interviews.css">
+  <link rel="stylesheet" href="src/styles/applicant.css">
+  <link rel="stylesheet" href="src/styles/account.css">
+  <link rel="stylesheet" href="src/styles/public.css">
   <script type="module" src="src/app.js"></script>
 </head>
-<body data-view="schedule">
+<body data-view="schedule" data-roles="executive">
   <a class="skip-link" href="#main">Đến nội dung chính</a>
   <header class="site-header" id="site-header">
     <div class="header-inner">
@@ -22,27 +31,32 @@
       <nav class="site-navigation" id="site-navigation" aria-label="Điều hướng chính">
         <a href="discover.html">Khám phá</a>
         <a href="recruitment.html">Đợt tuyển thành viên</a>
-        <a href="events.html">Sự kiện CLB</a>
+        <a href="events.html">Lịch trình tuyển</a>
       </nav>
       <div class="header-actions">
-        <button class="icon-button theme-toggle" id="theme-toggle" data-action="theme" aria-label="Chuyển sang giao diện tối" aria-pressed="false"><span class="theme-moon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.3A9 9 0 0 1 10.7 3.2 9 9 0 1 0 20.8 13.3Z"/></svg></span><span class="theme-sun"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></span></button>
-        <a class="button button-secondary header-cta" href="index.html">Không gian CLB<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></a>
+        <button class="icon-button theme-toggle" id="theme-toggle" data-action="theme" aria-label="Chuyển sang giao diện tối" title="Giao diện tối" aria-pressed="false"><span class="theme-moon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.3A9 9 0 0 1 10.7 3.2 9 9 0 1 0 20.8 13.3Z"/></svg></span><span class="theme-sun"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></span></button>
+        <div class="notify-wrap" id="notify-wrap">
+          <button class="icon-button notify-trigger" id="notify-trigger" data-action="notifications" aria-expanded="false" aria-controls="notify-panel" aria-label="Thông báo" title="Thông báo"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg><span class="notify-count" id="notify-count" hidden></span></button>
+          <div class="account-menu notify-panel" id="notify-panel" hidden></div>
+        </div>
+        <a class="button button-secondary header-cta" id="header-cta" href="index.html">Không gian CLB<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></a>
         <div class="account-wrap" id="account-wrap">
-          <button class="account-trigger" id="account-trigger" data-action="account" aria-expanded="false" aria-controls="account-menu" aria-label="Tài khoản Vinh Quang"><img class="account-avatar" src="assets/discovery/avatar.png" alt="" width="40" height="40"><span class="account-label"><strong>Vinh Quang</strong><small>Ban tuyển dụng</small></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <button class="account-trigger" id="account-trigger" data-action="account" aria-expanded="false" aria-controls="account-menu" aria-label="Tài khoản Trần Vinh Quang"><img class="account-avatar" src="assets/images/avatar.png" alt="" width="40" height="40"><span class="account-label"><strong>Trần Vinh Quang</strong><small>Ban điều hành</small></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
           <div class="account-menu" id="account-menu" hidden>
-            <div class="account-menu-head"><img src="assets/discovery/avatar.png" alt="" width="44" height="44"><strong>Trần Vinh Quang</strong><p>Ban tuyển dụng</p></div>
-            <a class="account-menu-item" href="profile.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3"/></svg>Hồ sơ cá nhân</a>
-            <a class="account-menu-item" href="index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Không gian quản lý CLB</a>
-            <hr class="account-menu-divider">
-            <button class="account-menu-item" data-action="theme"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.3A9 9 0 0 1 10.7 3.2 9 9 0 1 0 20.8 13.3Z"/></svg>Đổi chế độ sáng / tối</button>
+            <div class="account-menu-head"><img class="account-menu-avatar" src="assets/images/avatar.png" alt="" width="44" height="44"><strong>Trần Vinh Quang</strong><p>Ban điều hành · Ban tuyển dụng</p></div>
+    <a class="account-menu-item" href="profile.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3"/></svg>Hồ sơ cá nhân</a><a class="account-menu-item" href="index.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Không gian quản lý CLB</a><a class="account-menu-item" href="results.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4a3 3 0 0 0 4 4m8-4h4a3 3 0 0 1-4 4M12 14v4m-4 3h8"/></svg>Kết quả tuyển</a>
+    <a class="account-menu-item" href="login.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 20v-1a6 6 0 0 1 12 0v1M16 4.5a3.5 3.5 0 0 1 0 7M18 14a5 5 0 0 1 4 5v1"/></svg>Đổi tài khoản</a>
+    <hr class="account-menu-divider">
+    <button type="button" class="account-menu-item" data-action="theme"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.3A9 9 0 0 1 10.7 3.2 9 9 0 1 0 20.8 13.3Z"/></svg>Đổi chế độ sáng / tối</button>
+    <button type="button" class="account-menu-item account-menu-danger" data-action="sign-out"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/></svg>Đăng xuất</button>
           </div>
         </div>
-        <button class="icon-button mobile-menu" id="menu-toggle" aria-label="Mở menu" aria-controls="site-navigation" aria-expanded="false" data-action="menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button class="icon-button mobile-menu" id="menu-toggle" aria-label="Mở menu" title="Menu" aria-controls="site-navigation" aria-expanded="false" data-action="menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
       </div>
     </div>
   </header>
   <div class="workspace-context" id="workspace-context">
-    <div class="workspace-meta"><nav class="workspace-breadcrumb" aria-label="Vị trí hiện tại"><a href="discover.html">Khám phá CLB</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg><span>Không gian quản lý</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg><span id="topbar-current">Xếp lịch phỏng vấn</span></nav><span class="workspace-identity">CLB Truyền thông HCMUS</span></div>
+    <div class="workspace-meta"><nav class="workspace-breadcrumb" aria-label="Vị trí hiện tại"><a href="discover.html">Khám phá CLB</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg><a href="index.html">Không gian quản lý</a><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg><span id="topbar-current">Xếp lịch phỏng vấn</span></nav><span class="workspace-identity">CLB Truyền thông HCMUS</span></div>
   </div>
   <div class="workspace-workflow" id="workspace-workflow">
     <nav class="workflow-tabs" aria-label="Ba bước tuyển thành viên">
@@ -51,8 +65,138 @@
       <a href="schedule.html" class="active" aria-current="page"><span class="step-number">03</span><span><strong>Sắp xếp cuộc gặp</strong><small>Lịch & phỏng vấn</small></span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     </nav>
   </div>
-  <main id="main" tabindex="-1"><h1 class="sr-only">Xếp lịch phỏng vấn</h1><section class="blank-canvas" aria-label="Xếp lịch phỏng vấn"></section></main>
-  <footer class="site-footer"><p>ClubFlow · Prototype tuyển thành viên CLB</p></footer>
+  <main id="main" tabindex="-1"><div class="page-heading">
+    <div><h1>Xếp lịch phỏng vấn</h1><p>Tạo lịch nháp cho các hồ sơ qua vòng CV, xử lý xung đột rồi xác nhận lịch chính thức.</p></div>
+    <div class="heading-actions"><button type="button" class="button button-secondary" data-schedule-action="export"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 17v3h16v-3"/></svg>Xuất lịch (CSV)</button></div>
+  </div>
+  <div class="campaign-ribbon" role="region" aria-label="Thông tin buổi phỏng vấn">
+    <div class="ribbon-main"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg><div><strong>Tuyển thành viên mùa Thu 2026</strong><small>Phỏng vấn Thứ Hai, 23/11/2026 · 08:00–11:00 · 20 phút/buổi</small></div></div>
+    <div class="ribbon-meta"><span class="pill draft">Bản nháp</span></div>
+  </div>
+
+
+  <div class="schedule-layout">
+    <form class="schedule-config form-panel" id="schedule-config" novalidate aria-labelledby="schedule-config-title">
+    <h2 id="schedule-config-title">Cấu hình buổi phỏng vấn</h2>
+    <p>Mỗi đợt tuyển có một ngày phỏng vấn và cùng một thời lượng cho mọi buổi.</p>
+    <fieldset class="schedule-fieldset">
+      <legend class="sr-only">Cấu hình lịch phỏng vấn</legend>
+      <div class="schedule-config-grid">
+        <div class="field full-width"><label for="schedule-date">Ngày phỏng vấn<span class="required" aria-hidden="true">*</span></label><input id="schedule-date" type="date" data-config="date" value="2026-11-23" aria-describedby="schedule-date-help schedule-date-error" required><small id="schedule-date-help">Sau hạn đóng đơn 23:00 20/11/2026</small><span class="field-error" id="schedule-date-error" hidden></span></div>
+        <div class="field"><label for="schedule-start">Bắt đầu</label><input id="schedule-start" type="time" step="300" data-config="start" value="08:00" aria-describedby="schedule-start-error" required><span class="field-error" id="schedule-start-error" hidden></span></div>
+        <div class="field"><label for="schedule-end">Kết thúc</label><input id="schedule-end" type="time" step="300" data-config="end" value="11:00" aria-describedby="schedule-end-error" required><span class="field-error" id="schedule-end-error" hidden></span></div>
+        <div class="field full-width"><label for="schedule-duration">Thời lượng mỗi buổi</label><select id="schedule-duration" data-config="duration" aria-describedby="schedule-duration-error"><option value="15">15 phút</option><option value="20" selected>20 phút</option><option value="30">30 phút</option></select><span class="field-error" id="schedule-duration-error" hidden></span></div>
+      </div>
+      <h3 class="schedule-subhead">Người phỏng vấn</h3>
+      <p class="schedule-muted" id="schedule-interviewers-help">Chọn vị trí mỗi người phụ trách và giờ họ rảnh trong ngày.</p>
+      <div class="schedule-people" id="schedule-interviewers" tabindex="-1" aria-describedby="schedule-interviewers-help schedule-interviewers-error"><fieldset class="schedule-person" data-interviewer="iv-linh" aria-describedby="schedule-iv-iv-linh-error">
+      <legend><span class="avatar mint" aria-hidden="true">KL</span><span><strong>Võ Khánh Linh</strong><small>Trưởng ban Nội dung</small></span></legend>
+      <div class="schedule-checks" role="group" aria-label="Vị trí Võ Khánh Linh phỏng vấn">
+        <label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-linh" value="position-content" checked><span>Sáng tạo nội dung</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-linh" value="position-design"><span>Thiết kế đồ họa</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-linh" value="position-photo"><span>Nhiếp ảnh</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-linh" value="position-events"><span>Tổ chức sự kiện</span></label>
+      </div>
+      <div class="schedule-range">
+        <div class="field"><label for="schedule-iv-iv-linh-from">Rảnh từ</label><input id="schedule-iv-iv-linh-from" type="time" step="300" data-config="from" data-interviewer="iv-linh" value="08:00"></div>
+        <div class="field"><label for="schedule-iv-iv-linh-to">Đến</label><input id="schedule-iv-iv-linh-to" type="time" step="300" data-config="to" data-interviewer="iv-linh" value="11:00"></div>
+      </div>
+      <span class="field-error" id="schedule-iv-iv-linh-error" hidden></span>
+    </fieldset><fieldset class="schedule-person" data-interviewer="iv-nam" aria-describedby="schedule-iv-iv-nam-error">
+      <legend><span class="avatar mint" aria-hidden="true">HN</span><span><strong>Đặng Hoài Nam</strong><small>Trưởng ban Sáng tạo</small></span></legend>
+      <div class="schedule-checks" role="group" aria-label="Vị trí Đặng Hoài Nam phỏng vấn">
+        <label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-nam" value="position-content"><span>Sáng tạo nội dung</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-nam" value="position-design" checked><span>Thiết kế đồ họa</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-nam" value="position-photo" checked><span>Nhiếp ảnh</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-nam" value="position-events"><span>Tổ chức sự kiện</span></label>
+      </div>
+      <div class="schedule-range">
+        <div class="field"><label for="schedule-iv-iv-nam-from">Rảnh từ</label><input id="schedule-iv-iv-nam-from" type="time" step="300" data-config="from" data-interviewer="iv-nam" value="08:00"></div>
+        <div class="field"><label for="schedule-iv-iv-nam-to">Đến</label><input id="schedule-iv-iv-nam-to" type="time" step="300" data-config="to" data-interviewer="iv-nam" value="10:00"></div>
+      </div>
+      <span class="field-error" id="schedule-iv-iv-nam-error" hidden></span>
+    </fieldset><fieldset class="schedule-person" data-interviewer="iv-tram" aria-describedby="schedule-iv-iv-tram-error">
+      <legend><span class="avatar mint" aria-hidden="true">NT</span><span><strong>Lý Ngọc Trâm</strong><small>Trưởng ban Sự kiện</small></span></legend>
+      <div class="schedule-checks" role="group" aria-label="Vị trí Lý Ngọc Trâm phỏng vấn">
+        <label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-tram" value="position-content"><span>Sáng tạo nội dung</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-tram" value="position-design"><span>Thiết kế đồ họa</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-tram" value="position-photo"><span>Nhiếp ảnh</span></label><label class="schedule-check"><input type="checkbox" data-config="position" data-interviewer="iv-tram" value="position-events" checked><span>Tổ chức sự kiện</span></label>
+      </div>
+      <div class="schedule-range">
+        <div class="field"><label for="schedule-iv-iv-tram-from">Rảnh từ</label><input id="schedule-iv-iv-tram-from" type="time" step="300" data-config="from" data-interviewer="iv-tram" value="09:40"></div>
+        <div class="field"><label for="schedule-iv-iv-tram-to">Đến</label><input id="schedule-iv-iv-tram-to" type="time" step="300" data-config="to" data-interviewer="iv-tram" value="11:00"></div>
+      </div>
+      <span class="field-error" id="schedule-iv-iv-tram-error" hidden></span>
+    </fieldset></div>
+      <span class="field-error" id="schedule-interviewers-error" hidden></span>
+      <h3 class="schedule-subhead">Phòng phỏng vấn</h3>
+      <div class="schedule-checks schedule-rooms" id="schedule-rooms" role="group" aria-label="Phòng phỏng vấn" tabindex="-1" aria-describedby="schedule-rooms-error">
+        <label class="schedule-check"><input type="checkbox" data-config="room" value="room-i23" checked><span>Phòng I.23 · Nhà I</span></label><label class="schedule-check"><input type="checkbox" data-config="room" value="room-i24" checked><span>Phòng I.24 · Nhà I</span></label><label class="schedule-check"><input type="checkbox" data-config="room" value="room-club"><span>Phòng sinh hoạt CLB</span></label>
+      </div>
+      <span class="field-error" id="schedule-rooms-error" hidden></span>
+      <button type="submit" class="button button-secondary schedule-generate" id="schedule-generate"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/></svg>Tạo lịch nháp</button>
+    </fieldset>
+  </form>
+    <div class="schedule-main" id="schedule-main"><div class="stats-strip schedule-stats" role="group" aria-label="Thống kê lịch phỏng vấn, tổng 5 hồ sơ">
+    <div class="stat-card"><div class="stat-top"><span class="stat-dot dot-neutral" aria-hidden="true"></span>Đề xuất</div><span class="stat-value" data-stat="proposed">2</span><span class="stat-context">chờ xác nhận</span></div>
+    <div class="stat-card"><div class="stat-top"><span class="stat-dot dot-danger" aria-hidden="true"></span>Xung đột</div><span class="stat-value" data-stat="conflict">2</span><span class="stat-context">cần giải quyết</span></div>
+    <div class="stat-card"><div class="stat-top"><span class="stat-dot dot-amber" aria-hidden="true"></span>Chưa xếp</div><span class="stat-value" data-stat="unassigned">1</span><span class="stat-context">cần gán lịch</span></div>
+    <div class="stat-card"><div class="stat-top"><span class="stat-dot dot-success" aria-hidden="true"></span>Đã xác nhận</div><span class="stat-value" data-stat="confirmed">0</span><span class="stat-context">lịch chính thức</span></div>
+  </div>
+  <div id="schedule-alerts"><div class="notice schedule-notice schedule-notice-danger"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 10 18H2zM12 9v4m0 4v.1"/></svg><div><strong>2 lịch đang xung đột</strong><ul><li><a href="#schedule-row-HS-002">HS-002 · Trần Gia Huy</a>: Trùng người phỏng vấn Đặng Hoài Nam với HS-005 (08:00–08:20).</li><li><a href="#schedule-row-HS-005">HS-005 · Phạm Quốc Bảo</a>: Trùng người phỏng vấn Đặng Hoài Nam với HS-002 (08:00–08:20).</li></ul></div></div><div class="notice notice-warning schedule-notice"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></svg><div><strong>1 hồ sơ chưa có lịch</strong><ul><li><a href="#schedule-row-HS-008">HS-008 · Trần Gia Huy</a>: Không có khung giờ chung giữa ứng viên và người phỏng vấn phụ trách.</li></ul></div></div></div>
+  <section class="list-panel schedule-board" aria-labelledby="schedule-board-title">
+    <div class="list-heading"><h2 id="schedule-board-title">Bảng lịch phỏng vấn</h2><span class="count-tag">5 hồ sơ qua vòng CV</span></div>
+    <div class="table-scroll schedule-table-wrap" tabindex="0" role="region" aria-label="Bảng lịch phỏng vấn, có thể cuộn ngang">
+      <table class="data-table schedule-table">
+        <caption class="sr-only">Lịch phỏng vấn theo giờ. Tổng 5 hồ sơ: 2 đề xuất, 2 xung đột, 1 chưa xếp, 0 đã xác nhận.</caption>
+        <thead><tr><th scope="col">Giờ</th><th scope="col">Ứng viên</th><th scope="col">Vị trí</th><th scope="col">Người phỏng vấn</th><th scope="col">Phòng</th><th scope="col">Trạng thái</th><th scope="col"><span class="sr-only">Thao tác</span></th></tr></thead>
+        <tbody id="schedule-rows"><tr id="schedule-row-HS-002" class="schedule-row schedule-row-conflict">
+      <td data-label="Giờ"><strong class="schedule-time">08:00–08:20</strong></td>
+      <td data-label="Ứng viên"><span class="person-cell"><span class="avatar blue" aria-hidden="true">GH</span><span class="person-info"><strong class="person-name">Trần Gia Huy</strong><small class="person-sub">24120102 · HS-002</small></span></span></td>
+      <td data-label="Vị trí"><span class="role-name">Thiết kế đồ họa</span><small class="role-sub">Ban Sáng tạo</small></td>
+      <td data-label="Người phỏng vấn">Đặng Hoài Nam</td>
+      <td data-label="Phòng">Phòng I.23 · Nhà I</td>
+      <td data-label="Trạng thái"><span class="pill schedule-pill schedule-pill-conflict"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 10 18H2zM12 9v4m0 4v.1"/></svg>Xung đột</span><ul class="schedule-issues"><li>Trùng người phỏng vấn Đặng Hoài Nam với HS-005 (08:00–08:20).</li><li>Trùng Phòng I.23 · Nhà I với HS-005 (08:00–08:20).</li></ul></td>
+      <td data-label="Thao tác" class="schedule-action-cell"><button type="button" class="button button-danger button-small" data-schedule-edit="HS-002" aria-label="Giải quyết xung đột của Trần Gia Huy, HS-002"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 10 18H2zM12 9v4m0 4v.1"/></svg>Giải quyết</button></td>
+    </tr><tr id="schedule-row-HS-003" class="schedule-row schedule-row-proposed">
+      <td data-label="Giờ"><strong class="schedule-time">08:00–08:20</strong></td>
+      <td data-label="Ứng viên"><span class="person-cell"><span class="avatar peach" aria-hidden="true">TH</span><span class="person-info"><strong class="person-name">Lê Thụy Hà</strong><small class="person-sub">24120954 · HS-003</small></span></span></td>
+      <td data-label="Vị trí"><span class="role-name">Sáng tạo nội dung</span><small class="role-sub">Ban Nội dung</small></td>
+      <td data-label="Người phỏng vấn">Võ Khánh Linh</td>
+      <td data-label="Phòng">Phòng I.24 · Nhà I</td>
+      <td data-label="Trạng thái"><span class="pill schedule-pill schedule-pill-proposed"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Đề xuất</span></td>
+      <td data-label="Thao tác" class="schedule-action-cell"><button type="button" class="button button-quiet button-small" data-schedule-edit="HS-003" aria-label="Sửa lịch của Lê Thụy Hà, HS-003">Sửa</button></td>
+    </tr><tr id="schedule-row-HS-005" class="schedule-row schedule-row-conflict">
+      <td data-label="Giờ"><strong class="schedule-time">08:00–08:20</strong></td>
+      <td data-label="Ứng viên"><span class="person-cell"><span class="avatar mint" aria-hidden="true">QB</span><span class="person-info"><strong class="person-name">Phạm Quốc Bảo</strong><small class="person-sub">24121280 · HS-005</small></span></span></td>
+      <td data-label="Vị trí"><span class="role-name">Nhiếp ảnh</span><small class="role-sub">Ban Sáng tạo</small></td>
+      <td data-label="Người phỏng vấn">Đặng Hoài Nam</td>
+      <td data-label="Phòng">Phòng I.23 · Nhà I</td>
+      <td data-label="Trạng thái"><span class="pill schedule-pill schedule-pill-conflict"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 10 18H2zM12 9v4m0 4v.1"/></svg>Xung đột</span><ul class="schedule-issues"><li>Trùng người phỏng vấn Đặng Hoài Nam với HS-002 (08:00–08:20).</li><li>Trùng Phòng I.23 · Nhà I với HS-002 (08:00–08:20).</li></ul></td>
+      <td data-label="Thao tác" class="schedule-action-cell"><button type="button" class="button button-danger button-small" data-schedule-edit="HS-005" aria-label="Giải quyết xung đột của Phạm Quốc Bảo, HS-005"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 10 18H2zM12 9v4m0 4v.1"/></svg>Giải quyết</button></td>
+    </tr><tr id="schedule-row-HS-009" class="schedule-row schedule-row-proposed">
+      <td data-label="Giờ"><strong class="schedule-time">10:00–10:20</strong></td>
+      <td data-label="Ứng viên"><span class="person-cell"><span class="avatar lavender" aria-hidden="true">PN</span><span class="person-info"><strong class="person-name">Công Tằng Tôn Nữ Phương Thảo Nguyên</strong><small class="person-sub">25120577 · HS-009</small></span></span></td>
+      <td data-label="Vị trí"><span class="role-name">Sáng tạo nội dung</span><small class="role-sub">Ban Nội dung</small></td>
+      <td data-label="Người phỏng vấn">Võ Khánh Linh</td>
+      <td data-label="Phòng">Phòng I.24 · Nhà I</td>
+      <td data-label="Trạng thái"><span class="pill schedule-pill schedule-pill-proposed"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Đề xuất</span></td>
+      <td data-label="Thao tác" class="schedule-action-cell"><button type="button" class="button button-quiet button-small" data-schedule-edit="HS-009" aria-label="Sửa lịch của Công Tằng Tôn Nữ Phương Thảo Nguyên, HS-009">Sửa</button></td>
+    </tr><tr id="schedule-row-HS-008" class="schedule-row schedule-row-unassigned">
+      <td data-label="Giờ"><span class="schedule-muted">Chưa có giờ</span></td>
+      <td data-label="Ứng viên"><span class="person-cell"><span class="avatar blue" aria-hidden="true">GH</span><span class="person-info"><strong class="person-name">Trần Gia Huy</strong><small class="person-sub">24120102 · HS-008</small></span></span></td>
+      <td data-label="Vị trí"><span class="role-name">Tổ chức sự kiện</span><small class="role-sub">Ban Sự kiện</small></td>
+      <td data-label="Người phỏng vấn"><span class="schedule-muted">—</span></td>
+      <td data-label="Phòng"><span class="schedule-muted">—</span></td>
+      <td data-label="Trạng thái"><span class="pill schedule-pill schedule-pill-unassigned"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></svg>Chưa xếp</span><small class="schedule-reason">Không có khung giờ chung giữa ứng viên và người phỏng vấn phụ trách.</small></td>
+      <td data-label="Thao tác" class="schedule-action-cell"><button type="button" class="button button-secondary button-small" data-schedule-edit="HS-008" aria-label="Gán lịch cho Trần Gia Huy, HS-008"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Gán lịch</button></td>
+    </tr></tbody>
+      </table>
+
+    </div>
+    <p class="schedule-total" id="schedule-total">Tổng 5 = 2 đề xuất + 2 xung đột + 1 chưa xếp + 0 đã xác nhận</p>
+  </section></div>
+  </div>
+  <div class="review-bottom-nav schedule-bottom">
+    <span class="save-state" id="schedule-save-state"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Lịch nháp mẫu · chưa lưu trên trình duyệt này</span>
+    <div class="schedule-bottom-actions">
+      <a class="button button-quiet" href="applications.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>Về duyệt hồ sơ</a>
+      <button type="button" class="button button-secondary" id="schedule-save" data-schedule-action="save">Lưu thay đổi</button><button type="button" class="button button-primary" id="schedule-confirm" data-schedule-action="confirm"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Duyệt &amp; xác nhận lịch</button>
+    </div>
+  </div></main>
+  <footer class="site-footer"><p>ClubFlow · Prototype tuyển thành viên CLB · Dữ liệu minh họa lưu trên trình duyệt này; không có máy chủ, mật khẩu hay email thật.</p></footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <dialog id="app-dialog" aria-labelledby="dialog-title"><div id="dialog-content"><h2 id="dialog-title" class="sr-only">Hộp thoại</h2></div></dialog>
 </body>

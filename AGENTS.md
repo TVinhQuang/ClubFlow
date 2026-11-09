@@ -10,15 +10,17 @@ These rules apply to this PA2 repository, including work assisted by AI. Preserv
 | Lê Tấn Thành — 24127540 (B) | Screen 2: application review | `applications.html`, `src/features/applications/` |
 | Nguyễn Thái Cường — 24127336 (C) | Screen 3: interview scheduling | `schedule.html`, `src/features/schedule/` |
 
-B and C currently have blank content areas inside the shared shell. Keep them blank until their owners implement them. Other navigation destinations are also blank scaffolds. Do not copy completed application or scheduling demos into this handoff or claim another member's work. Coordinate shared-file changes with Quang; keep feature-specific work inside its module.
+Screens 2 and 3 are implemented by their owners. On 2026-11-09, at Cường's request, branch `feature/c` also added the role pages (`login`, `apply`, `my-applications`, `interviews`, `results`), filled the public pages and changed shared files, Screen 1 and Screen 2 (see `AI-LOG.md`). **These cross-area changes are pending review by Quang (shared files, Screen 1) and Thành (Screen 2)** before merging to `main`. Do not claim another member's work. Coordinate shared-file changes with Quang; keep feature-specific work inside its module.
+
+Services passed to every `mount(container, services)`: `ui`, `session` (sample accounts, no passwords), `notifications` (in-app only), `campaignStore`, `applicationsStore`, `scheduleStore`, `assessmentsStore`, `resultsStore`, `getApplications`, `refreshNotifications`. Pages declare allowed roles through `body[data-roles]`; `src/app.js` shows an access notice for other roles. Once `scheduleStore.isConfirmed()` is true, Screen 1, Screen 2 decisions/notes and the schedule are read-only.
 
 ## Stack and source of truth
 
 - Use static HTML, custom CSS and vanilla JavaScript ES modules. Node.js **22 or newer** runs the dependency-free development, generation, build and test scripts. Do not introduce React, SolidJS, a CSS framework or a package dependency without a team decision.
-- Use real relative `.html` links. All seven pages must open directly through an HTTP server; preserve useful static HTML when JavaScript is disabled. JavaScript progressively adds local form interactions, storage, dialogs and theme/menu controls.
+- Use real relative `.html` links. All twelve pages must open directly through an HTTP server; preserve useful static HTML when JavaScript is disabled. JavaScript progressively adds local form interactions, storage, dialogs and theme/menu controls.
 - Edit `src/templates/layout.js` for shared markup and `src/features/campaign/view.js` for screen 1 markup. Run `npm run generate` to update the generated root HTML files. Do not maintain separate hand-edited copies of generated markup.
 - Use `src/shared/ui.js` for icons, escaping, toast and dialog behavior. Each feature exports `mount(container, services)` and returns a cleanup function. `src/app.js` mounts the page selected by `body[data-view]`; navigation loads another HTML page.
-- Keep CSS in `src/styles/tokens.css`, `base.css`, `shell.css` and `campaign.css`. New B/C styles should use their own feature namespace and stylesheet, with shared tokens rather than copied shell rules.
+- Keep shared CSS in `src/styles/tokens.css`, `base.css`, `shell.css` and `common.css` (page utilities used by several features). Each feature has its own stylesheet and namespace: `campaign.css`, `applications.css`, `schedule.css`, `results.css`, `interviews.css`, `applicant.css`, `account.css`, `public.css`. Use shared tokens rather than copied shell rules. The folder map is in README.md.
 
 ## Visual and accessibility contract
 

@@ -1,0 +1,25 @@
+/* Interviewer page: interviews.html (assigned interviews, CV dialog, assessment form). */
+.interviews-scope { display: flex; align-items: center; gap: 8px; margin: -8px 0 24px; }
+.interview-list { display: grid; gap: 16px; max-width: 1040px; margin: 0; padding: 0; list-style: none; }
+.interview-card { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 24px; align-items: center; padding: 24px; border: 1px solid var(--panel-stroke); border-radius: var(--radius); background: var(--surface); box-shadow: var(--panel-shadow); }
+.interview-time { display: grid; place-items: center; padding: 12px; border-radius: 10px; background: var(--mint); color: var(--link); font-variant-numeric: tabular-nums; }
+.interview-time strong { font-size: 21px; }
+.interview-time span { font-size: 13px; }
+.interview-main h2 { margin: 0; font-size: 19px; }
+.interview-main p { margin: 4px 0 0; }
+.interview-main .muted-text { display: flex; align-items: center; gap: 8px; }
+.interview-main .muted-text .icon { width: 16px; height: 16px; }
+.interview-assessed { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 12px; border-radius: 6px; color: var(--success); background: var(--success-bg); font-size: 14px; font-weight: 500; }
+.interview-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.interview-wait { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+.rating { min-width: 0; margin: 0 0 24px; padding: 0; border: 0; }
+.rating legend { margin-bottom: 8px; font-weight: 500; }
+.rating-options { display: flex; flex-wrap: wrap; gap: 8px; }
+#assessment-form .field { margin-bottom: 24px; }
+
+@media (max-width: 767px) {
+  .interview-card { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 16px; }
+  .interview-time { justify-items: start; grid-auto-flow: column; justify-content: start; gap: 8px; }
+  .interview-actions { justify-content: stretch; }
+  .interview-actions .button { flex: 1; }
+}

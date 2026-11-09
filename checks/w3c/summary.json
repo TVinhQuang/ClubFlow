@@ -1,12 +1,12 @@
 {
-  "checkedAt": "2026-11-08T07:41:21.157Z",
+  "checkedAt": "2026-11-09T03:27:34.841Z",
   "endpoint": "https://validator.w3.org/nu/?out=json",
-  "scope": "Generated HTML files only. Screens 2/3 and public pages are blank scaffolds; validation does not certify feature completion, responsive layout, or external CSS.",
+  "scope": "Generated static HTML files only (sample data). Validation does not certify JavaScript-rendered states, responsive layout, or external CSS.",
   "results": [
     {
       "file": "index.html",
       "view": "campaign",
-      "sha256": "680f5f933768be8e7db1f58f46c6e98191d879f2d480685b4f630199606cdf38",
+      "sha256": "3d77eb53c951cd0291b5af3f2cf79619ea8a5720a8724f923d8a86f67afe2e3c",
       "errors": 0,
       "warnings": 0,
       "report": "campaign.json"
@@ -14,7 +14,7 @@
     {
       "file": "applications.html",
       "view": "applications",
-      "sha256": "74cd9ddd861e68f2c98b1d0d447cfb0961435450b4ff7d671e483a894d9780d9",
+      "sha256": "6eb6d5c8e22ecbeec03d70142508cc33463575a857046f22a8bae746660a183d",
       "errors": 0,
       "warnings": 0,
       "report": "applications.json"
@@ -22,15 +22,47 @@
     {
       "file": "schedule.html",
       "view": "schedule",
-      "sha256": "d7c9a9938c23d847003f457178823cd3ba800da805df3d1baaeba6b5c7ec24b7",
+      "sha256": "13cf7eaf3794f87b17e523ba980916ad77400903ad5535b22b37ff42133dcf0f",
       "errors": 0,
       "warnings": 0,
       "report": "schedule.json"
     },
     {
+      "file": "results.html",
+      "view": "results",
+      "sha256": "9759471f361d64c6dd9c2ce6fb511e6536d8ca09347c1abcf384337d3008b01b",
+      "errors": 0,
+      "warnings": 0,
+      "report": "results.json"
+    },
+    {
+      "file": "interviews.html",
+      "view": "interviews",
+      "sha256": "85025535489ae9057923cc56c68af4a4bcd6e8b0f4e117ad46a2e32e3ac2fa87",
+      "errors": 0,
+      "warnings": 0,
+      "report": "interviews.json"
+    },
+    {
+      "file": "apply.html",
+      "view": "apply",
+      "sha256": "782c0f96fe7d808a7cf805c1ed03a6e32d6acc4e795fce69f7b7d403b893868c",
+      "errors": 0,
+      "warnings": 0,
+      "report": "apply.json"
+    },
+    {
+      "file": "my-applications.html",
+      "view": "mine",
+      "sha256": "48177848c7d9ee9a76f2bafe51521f682e8f944fd0886a07ed019ae7d16cbfe1",
+      "errors": 0,
+      "warnings": 0,
+      "report": "mine.json"
+    },
+    {
       "file": "discover.html",
       "view": "discover",
-      "sha256": "5b1f26e2be9f12e1bf92257086d0bb146b6b758ed1e4f38cec41b4d70264e1ec",
+      "sha256": "7e9da762c730e8bb19f9b21c0e59ab5c5f972a21656eee79949fdb667de942e8",
       "errors": 0,
       "warnings": 0,
       "report": "discover.json"
@@ -38,7 +70,7 @@
     {
       "file": "recruitment.html",
       "view": "recruitment",
-      "sha256": "c4a184faf7f3c23b1c4a956c85c2b1782de5cadf943a6988d8904af94b0b5a25",
+      "sha256": "ccbf96b53751f156cf61cb4aad87d1a7457b343ef784d3cac4b6f3bedeb7e607",
       "errors": 0,
       "warnings": 0,
       "report": "recruitment.json"
@@ -46,7 +78,7 @@
     {
       "file": "events.html",
       "view": "events",
-      "sha256": "39454025372fe05a33fbff64b1c0534c4d75ce5c880a96790c03a4fb3111cb72",
+      "sha256": "e2f88de03e7c51b5e673a23e423eff84c358a113967ca7b2c0dacfb44a491807",
       "errors": 0,
       "warnings": 0,
       "report": "events.json"
@@ -54,10 +86,18 @@
     {
       "file": "profile.html",
       "view": "profile",
-      "sha256": "b8e47afa737aecdaabfe096cea85b0459847e10e0fddd5f084b9b20adf50f64e",
+      "sha256": "eec6aca4dada8a08d8d2722ab77ca3b308d8bc1ec5b1b6749164fc9f276c15fb",
       "errors": 0,
       "warnings": 0,
       "report": "profile.json"
+    },
+    {
+      "file": "login.html",
+      "view": "login",
+      "sha256": "984e59a967fb9b0dc5b3b49acee9c56a6496dfe898b555ccdf01b5eb01f2e865",
+      "errors": 0,
+      "warnings": 0,
+      "report": "login.json"
     }
   ]
 }
